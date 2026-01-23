@@ -1,4 +1,3 @@
-import java.util.Locale;
 import java.util.Scanner;
 
 public class Carrot {
@@ -7,7 +6,7 @@ public class Carrot {
     public static int currentSize = 0;
     public static boolean exit = false;
     public static String seperator = "------------------------------------------";
-    public static String[] taskList = new String[LISTSIZE];
+    public static Task[] taskList = new Task[LISTSIZE];
 
     public static void printLine() {
         System.out.println(seperator);
@@ -33,28 +32,51 @@ public class Carrot {
 
     public static void printList() {
         for (int index = 1; index < (currentSize + 1); index++) {
-            System.out.println("\t" + index + " " + taskList[index]);
+            System.out.println("\t" + index + " " + taskList[index - 1].toString());
+        }
+    }
+
+    public static void argsCheck(String[] inputs, int numArgs) {
+        if (inputs.length != numArgs) {
+            throw new IndexOutOfBoundsException();
         }
     }
 
     public static void echo() {
         Scanner input = new Scanner(System.in);
         String userInput = input.nextLine();
-        switch (userInput.toLowerCase()) {
-            case "bye":
-                exit = true;
-                printExit();
-                break;
-            case "list":
+        if (userInput.equalsIgnoreCase("bye")) {
+            exit = true;
+            printExit();
+        } else if (userInput.equalsIgnoreCase("list")) {
+            printList();
+            printLine();
+        } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
+            String[] inputs = userInput.split(" ");
+            argsCheck(inputs, 2);
+            try {
+                int index = Integer.parseInt(inputs[1]) - 1;
+                if (inputs[0].startsWith("mark")) {
+                    taskList[index].markCompleted();
+                } else {
+                    taskList[index].markIncomplete();
+                }
                 printList();
-                break;
-            default:
-                taskList[currentSize + 1] = userInput;
-                userInput = "added: " + userInput;
-                System.out.printf("%" + seperator.length() + "s%n", userInput);
+            } catch (NumberFormatException e) {
+                System.out.printf("Error: The index to mark/unmark was not specified. Please type '%s [number]'.%n", inputs[0]);
+            } catch (NullPointerException e) {
+                System.out.printf("Error: There is %d items currently in the list. Please type '%s [number]' or add to the list first.%n", currentSize, inputs[0]);
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Error: Too many or too few arguments. Please type '%s [number]'.%n", inputs[0]);
+            } finally {
                 printLine();
-                currentSize++;
-                break;
+            }
+        } else {
+            taskList[currentSize] = new Task(userInput);
+            userInput = "added: " + userInput;
+            System.out.printf("%" + seperator.length() + "s%n", userInput);
+            printLine();
+            currentSize++;
         }
     }
 
