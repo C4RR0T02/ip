@@ -19,7 +19,7 @@ public class Prints {
     }
 
     public static void printExit() {
-        System.out.println("Bye. Hope to see you again soon!");
+        System.out.printf("%" + seperator.length() + "s%n", "Bye. Hope to see you again soon!");
         printLine();
     }
 

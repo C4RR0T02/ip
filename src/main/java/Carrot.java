@@ -13,12 +13,10 @@ public class Carrot {
         }
     }
 
-    public static void echo() {
-        Scanner input = new Scanner(System.in);
+    public static void echo(Scanner input) {
         String userInput = input.nextLine();
         if (userInput.equalsIgnoreCase("bye")) {
             exit = true;
-            Prints.printExit();
         } else if (userInput.equalsIgnoreCase("list")) {
             Prints.printTaskList(taskList, currentSize);
             Prints.printLine();
@@ -43,10 +41,9 @@ public class Carrot {
                 Prints.printLine();
             }
         } else if (userInput.startsWith("event ")) {
-            String[] inputs = userInput.split("event ");
+            String inputs = userInput.substring(6);
             try {
-                argsCheck(inputs, 2);
-                String[] taskSplit = inputs[1].split(" /from ");
+                String[] taskSplit = inputs.split(" /from ");
                 argsCheck(taskSplit, 2);
                 String[] dateSplit = taskSplit[1].split(" /to ");
                 argsCheck(dateSplit, 2);
@@ -59,10 +56,9 @@ public class Carrot {
                 Prints.printLine();
             }
         } else if (userInput.startsWith("deadline ")) {
-            String[] inputs = userInput.split("deadline ");
+            String inputs = userInput.substring(9);
             try {
-                argsCheck(inputs, 2);
-                String[] taskSplit = inputs[1].split(" /by ");
+                String[] taskSplit = inputs.split(" /by ");
                 argsCheck(taskSplit, 2);
                 taskList[currentSize] = new Deadline(taskSplit[0], taskSplit[1]);
                 System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
@@ -73,10 +69,9 @@ public class Carrot {
                 Prints.printLine();
             }
         } else if (userInput.startsWith("todo ")) {
-            String[] inputs = userInput.split("todo ");
+            String inputs = userInput.substring(5);
             try {
-                argsCheck(inputs, 2);
-                taskList[currentSize] = new Todo(inputs[1]);
+                taskList[currentSize] = new Todo(inputs);
                 System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
                 currentSize++;
             } catch (IndexOutOfBoundsException e) {
@@ -90,14 +85,17 @@ public class Carrot {
     }
 
     public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
         try {
             Prints.printStart();
             while (!exit) {
-                echo();
+
+                echo(input);
             }
         } catch (Exception e) {
             System.out.println(e);
         } finally {
+            input.close();
             Prints.printExit();
         }
     }
