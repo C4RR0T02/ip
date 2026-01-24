@@ -54,21 +54,21 @@ What can I do for you?
                                      hmmmmm, I can't seem to find a command for that
                                   Try screaming "help" for the full list of commands
 ------------------------------------------------------------------------------------
-Error: Too many or too few arguments. Please type 'mark [number]'
+Error: Too many or too few arguments. Please type 'mark [task number]'
 ------------------------------------------------------------------------------------
-Error: Too many or too few arguments. Please type 'unmark [number]'
+Error: Too many or too few arguments. Please type 'unmark [task number]'
 ------------------------------------------------------------------------------------
-Error: There is 3 items currently in the list. Please type 'mark [number]' or add to the list first
+Error: There is 3 items currently in the list. Please type 'mark [task number]' where task number is less than 3 or add to the list first
 ------------------------------------------------------------------------------------
-Error: There is 3 items currently in the list. Please type 'unmark [number]' or add to the list first
+Error: There is 3 items currently in the list. Please type 'unmark [task number]' where task number is less than 3 or add to the list first
 ------------------------------------------------------------------------------------
-Error: The index to mark/unmark was not specified. Please type 'mark [number]'
+Error: The index to mark/unmark was not specified. Please type 'mark [task number]'
 ------------------------------------------------------------------------------------
-Error: The index to mark/unmark was not specified. Please type 'unmark [number]'
+Error: The index to mark/unmark was not specified. Please type 'unmark [task number]'
 ------------------------------------------------------------------------------------
-Error: Too many or too few arguments. Please type 'mark [number]'
+Error: Too many or too few arguments. Please type 'mark [task number]'
 ------------------------------------------------------------------------------------
-Error: Too many or too few arguments. Please type 'unmark [number]'
+Error: Too many or too few arguments. Please type 'unmark [task number]'
 ------------------------------------------------------------------------------------
                                                     Bye. Hope to see you again soon!
 ------------------------------------------------------------------------------------

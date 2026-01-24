@@ -1,0 +1,43 @@
+  ____                     _
+ / ___| __ _ _ __ _ __ ___| |_
+| |    / _` | '__| '__/ _ \ __|
+| |___| (_| | |  | | | (_) | |_
+ \____|\__,_|_|  |_|  \___/ \__|
+
+Hello! I'm C4RR0T
+What can I do for you?
+------------------------------------------------------------------------------------
+                                                       New Todo Alert: new todo task
+                                                               [T] [ ] new todo task
+------------------------------------------------------------------------------------
+                         New Event Alert: new event occurring from today 6pm to 10pm
+                                        [E] [ ] new event (from: today 6pm to: 10pm)
+------------------------------------------------------------------------------------
+                                         New Deadline Alert: new deadline by tmr 6pm
+                                                  [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [ ] new event (from: today 6pm to: 10pm)
+			3 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+                                     hmmmmm, I can't seem to find a command for that
+                                  Try screaming "help" for the full list of commands
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [ ] new event (from: today 6pm to: 10pm)
+			3 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+                                             Removed the task: [T] [ ] new todo task
+------------------------------------------------------------------------------------
+			1 [E] [ ] new event (from: today 6pm to: 10pm)
+			2 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'delete [task number]'
+------------------------------------------------------------------------------------
+			1 [E] [ ] new event (from: today 6pm to: 10pm)
+			2 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+Error: The index to delete was not specified. Please type 'delete [task number]'
+------------------------------------------------------------------------------------
+                                                    Bye. Hope to see you again soon!
+------------------------------------------------------------------------------------

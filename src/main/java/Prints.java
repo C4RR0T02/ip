@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Prints {
     public static String seperator = "------------------------------------------------------------------------------------";
 
@@ -7,11 +9,11 @@ public class Prints {
 
     public static void printStart() {
         String logo = """
-         ____                     _     
-        / ___| __ _ _ __ _ __ ___| |_   
-       | |    / _` | '__| '__/ _ \\ __|  
-       | |___| (_| | |  | | | (_) | |_  
-        \\____|\\__,_|_|  |_|  \\___/ \\__| 
+         ____                     _
+        / ___| __ _ _ __ _ __ ___| |_
+       | |    / _` | '__| '__/ _ \\ __|
+       | |___| (_| | |  | | | (_) | |_
+        \\____|\\__,_|_|  |_|  \\___/ \\__|
        """;
         System.out.println(logo);
         System.out.println("Hello! I'm C4RR0T\nWhat can I do for you?");
@@ -23,9 +25,9 @@ public class Prints {
         printLine();
     }
 
-    public static void printTaskList(Task[] list, int currentSize) {
+    public static void printTaskList(ArrayList<Task> list, int currentSize) {
         for (int index = 1; index < (currentSize + 1); index++) {
-            System.out.println("\t\t\t" + index + " " + list[index - 1]);
+            System.out.println("\t\t\t" + index + " " + list.get(index - 1));
         }
     }
 

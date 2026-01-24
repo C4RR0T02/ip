@@ -1,0 +1,9 @@
+list
+delete
+list
+delete 1
+list
+delete 1 2
+list
+delete abc
+bye
