@@ -5,36 +5,7 @@ public class Carrot {
     public static final int LISTSIZE = 100;
     public static int currentSize = 0;
     public static boolean exit = false;
-    public static String seperator = "------------------------------------------";
     public static Task[] taskList = new Task[LISTSIZE];
-
-    public static void printLine() {
-        System.out.println(seperator);
-    }
-
-    public static void printStart() {
-        String logo = """
-         ____                     _     
-        / ___| __ _ _ __ _ __ ___| |_   
-       | |    / _` | '__| '__/ _ \\ __|  
-       | |___| (_| | |  | | | (_) | |_  
-        \\____|\\__,_|_|  |_|  \\___/ \\__| 
-       """;
-        System.out.println(logo);
-        System.out.println("Hello! I'm C4RR0T\nWhat can I do for you?");
-        printLine();
-    }
-
-    public static void printExit() {
-        System.out.println("Bye. Hope to see you again soon!");
-        printLine();
-    }
-
-    public static void printList() {
-        for (int index = 1; index < (currentSize + 1); index++) {
-            System.out.println("\t" + index + " " + taskList[index - 1].toString());
-        }
-    }
 
     public static void argsCheck(String[] inputs, int numArgs) {
         if (inputs.length != numArgs) {
@@ -47,21 +18,21 @@ public class Carrot {
         String userInput = input.nextLine();
         if (userInput.equalsIgnoreCase("bye")) {
             exit = true;
-            printExit();
+            Prints.printExit();
         } else if (userInput.equalsIgnoreCase("list")) {
-            printList();
-            printLine();
+            Prints.printTaskList(taskList, currentSize);
+            Prints.printLine();
         } else if (userInput.startsWith("mark ") || userInput.startsWith("unmark ")) {
             String[] inputs = userInput.split(" ");
-            argsCheck(inputs, 2);
             try {
+                argsCheck(inputs, 2);
                 int index = Integer.parseInt(inputs[1]) - 1;
                 if (inputs[0].startsWith("mark")) {
                     taskList[index].markCompleted();
                 } else {
                     taskList[index].markIncomplete();
                 }
-                printList();
+                Prints.printTaskList(taskList, currentSize);
             } catch (NumberFormatException e) {
                 System.out.printf("Error: The index to mark/unmark was not specified. Please type '%s [number]'.%n", inputs[0]);
             } catch (NullPointerException e) {
@@ -69,22 +40,65 @@ public class Carrot {
             } catch (IndexOutOfBoundsException e) {
                 System.out.printf("Error: Too many or too few arguments. Please type '%s [number]'.%n", inputs[0]);
             } finally {
-                printLine();
+                Prints.printLine();
+            }
+        } else if (userInput.startsWith("event ")) {
+            String[] inputs = userInput.split("event ");
+            try {
+                argsCheck(inputs, 2);
+                String[] taskSplit = inputs[1].split(" /from ");
+                argsCheck(taskSplit, 2);
+                String[] dateSplit = taskSplit[1].split(" /to ");
+                argsCheck(dateSplit, 2);
+                taskList[currentSize] = new Event(taskSplit[0], dateSplit[0], dateSplit[1]);
+                System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
+                currentSize++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'.%n");
+            } finally {
+                Prints.printLine();
+            }
+        } else if (userInput.startsWith("deadline ")) {
+            String[] inputs = userInput.split("deadline ");
+            try {
+                argsCheck(inputs, 2);
+                String[] taskSplit = inputs[1].split(" /by ");
+                argsCheck(taskSplit, 2);
+                taskList[currentSize] = new Deadline(taskSplit[0], taskSplit[1]);
+                System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
+                currentSize++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'.%n");
+            } finally {
+                Prints.printLine();
+            }
+        } else if (userInput.startsWith("todo ")) {
+            String[] inputs = userInput.split("todo ");
+            try {
+                argsCheck(inputs, 2);
+                taskList[currentSize] = new Todo(inputs[1]);
+                System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
+                currentSize++;
+            } catch (IndexOutOfBoundsException e) {
+                System.out.printf("Error: Too many or too few arguments. Please type 'todo [task]'.%n");
+            } finally {
+                Prints.printLine();
             }
         } else {
-            taskList[currentSize] = new Task(userInput);
-            userInput = "added: " + userInput;
-            System.out.printf("%" + seperator.length() + "s%n", userInput);
-            printLine();
-            currentSize++;
+            Prints.invalidCommands();
         }
     }
 
     public static void main(String[] args) {
-        printStart();
-        while (!exit) {
-            echo();
+        try {
+            Prints.printStart();
+            while (!exit) {
+                echo();
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            Prints.printExit();
         }
-
     }
 }

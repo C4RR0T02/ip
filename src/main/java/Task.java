@@ -1,9 +1,7 @@
-import java.util.List;
+public abstract class Task {
 
-public class Task {
-
-    private boolean isComplete;
-    private String taskName;
+    protected boolean isComplete;
+    protected String taskName;
 
     public Task(String taskName) {
         this.taskName = taskName;
