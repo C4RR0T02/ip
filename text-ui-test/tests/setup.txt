@@ -1,0 +1,3 @@
+todo new todo task
+event new event /from today 6pm /to 10pm
+deadline new deadline /by tmr 6pm

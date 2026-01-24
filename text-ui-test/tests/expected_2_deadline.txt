@@ -1,0 +1,33 @@
+  ____                     _
+ / ___| __ _ _ __ _ __ ___| |_
+| |    / _` | '__| '__/ _ \ __|
+| |___| (_| | |  | | | (_) | |_
+ \____|\__,_|_|  |_|  \___/ \__|
+
+Hello! I'm C4RR0T
+What can I do for you?
+------------------------------------------------------------------------------------
+                                                       New Todo Alert: new todo task
+                                                               [T] [ ] new todo task
+------------------------------------------------------------------------------------
+                         New Event Alert: new event occurring from today 6pm to 10pm
+                                        [E] [ ] new event (from: today 6pm to: 10pm)
+------------------------------------------------------------------------------------
+                                         New Deadline Alert: new deadline by tmr 6pm
+                                                  [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+                                     hmmmmm, I can't seem to find a command for that
+                                  Try screaming "help" for the full list of commands
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'
+------------------------------------------------------------------------------------
+                                         New Deadline Alert: another deadline by tmr
+                                                  [D] [ ] another deadline (by: tmr)
+------------------------------------------------------------------------------------
+                                 New Deadline Alert: another deadline by tmr evening
+                                          [D] [ ] another deadline (by: tmr evening)
+------------------------------------------------------------------------------------
+                                                    Bye. Hope to see you again soon!
+------------------------------------------------------------------------------------

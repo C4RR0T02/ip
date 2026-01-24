@@ -2,6 +2,7 @@
 /.idea/
 /out/
 /*.iml
+.editorconfig
 
 # Gradle build files
 /.gradle/

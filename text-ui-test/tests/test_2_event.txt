@@ -1,0 +1,9 @@
+event
+event another event
+event another event /from
+event another event /from tmr
+event another event /from tmr evening
+event another event /from monday /to
+event another event /from monday /to tuesday
+event another event /from monday evening /to tuesday evening
+bye

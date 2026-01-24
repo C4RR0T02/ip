@@ -32,11 +32,11 @@ public class Carrot {
                 }
                 Prints.printTaskList(taskList, currentSize);
             } catch (NumberFormatException e) {
-                System.out.printf("Error: The index to mark/unmark was not specified. Please type '%s [number]'.%n", inputs[0]);
+                System.out.printf("Error: The index to mark/unmark was not specified. Please type '%s [number]'%n", inputs[0]);
             } catch (NullPointerException e) {
-                System.out.printf("Error: There is %d items currently in the list. Please type '%s [number]' or add to the list first.%n", currentSize, inputs[0]);
+                System.out.printf("Error: There is %d items currently in the list. Please type '%s [number]' or add to the list first%n", currentSize, inputs[0]);
             } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Error: Too many or too few arguments. Please type '%s [number]'.%n", inputs[0]);
+                System.out.printf("Error: Too many or too few arguments. Please type '%s [number]'%n", inputs[0]);
             } finally {
                 Prints.printLine();
             }
@@ -51,7 +51,7 @@ public class Carrot {
                 System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
                 currentSize++;
             } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'.%n");
+                System.out.printf("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'%n");
             } finally {
                 Prints.printLine();
             }
@@ -64,7 +64,7 @@ public class Carrot {
                 System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
                 currentSize++;
             } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'.%n");
+                System.out.printf("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'%n");
             } finally {
                 Prints.printLine();
             }
@@ -75,7 +75,7 @@ public class Carrot {
                 System.out.printf("%" + Prints.seperator.length() + "s%n", taskList[currentSize].toString());
                 currentSize++;
             } catch (IndexOutOfBoundsException e) {
-                System.out.printf("Error: Too many or too few arguments. Please type 'todo [task]'.%n");
+                System.out.printf("Error: Too many or too few arguments. Please type 'todo [task]'%n");
             } finally {
                 Prints.printLine();
             }
@@ -85,8 +85,8 @@ public class Carrot {
     }
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
         try {
+            Scanner input = new Scanner(System.in);
             Prints.printStart();
             while (!exit) {
 
@@ -95,7 +95,6 @@ public class Carrot {
         } catch (Exception e) {
             System.out.println(e);
         } finally {
-            input.close();
             Prints.printExit();
         }
     }

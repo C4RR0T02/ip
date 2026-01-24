@@ -1,0 +1,74 @@
+  ____                     _
+ / ___| __ _ _ __ _ __ ___| |_
+| |    / _` | '__| '__/ _ \ __|
+| |___| (_| | |  | | | (_) | |_
+ \____|\__,_|_|  |_|  \___/ \__|
+
+Hello! I'm C4RR0T
+What can I do for you?
+------------------------------------------------------------------------------------
+                                                       New Todo Alert: new todo task
+                                                               [T] [ ] new todo task
+------------------------------------------------------------------------------------
+                         New Event Alert: new event occurring from today 6pm to 10pm
+                                        [E] [ ] new event (from: today 6pm to: 10pm)
+------------------------------------------------------------------------------------
+                                         New Deadline Alert: new deadline by tmr 6pm
+                                                  [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [X] new todo task
+			2 [E] [ ] new event (from: today 6pm to: 10pm)
+			3 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [X] new todo task
+			2 [E] [X] new event (from: today 6pm to: 10pm)
+			3 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [X] new todo task
+			2 [E] [X] new event (from: today 6pm to: 10pm)
+			3 [D] [X] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [X] new todo task
+			2 [E] [X] new event (from: today 6pm to: 10pm)
+			3 [D] [X] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [X] new event (from: today 6pm to: 10pm)
+			3 [D] [X] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [X] new event (from: today 6pm to: 10pm)
+			3 [D] [X] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [ ] new event (from: today 6pm to: 10pm)
+			3 [D] [X] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+			1 [T] [ ] new todo task
+			2 [E] [ ] new event (from: today 6pm to: 10pm)
+			3 [D] [ ] new deadline (by: tmr 6pm)
+------------------------------------------------------------------------------------
+                                     hmmmmm, I can't seem to find a command for that
+                                  Try screaming "help" for the full list of commands
+------------------------------------------------------------------------------------
+                                     hmmmmm, I can't seem to find a command for that
+                                  Try screaming "help" for the full list of commands
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'mark [number]'
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'unmark [number]'
+------------------------------------------------------------------------------------
+Error: There is 3 items currently in the list. Please type 'mark [number]' or add to the list first
+------------------------------------------------------------------------------------
+Error: There is 3 items currently in the list. Please type 'unmark [number]' or add to the list first
+------------------------------------------------------------------------------------
+Error: The index to mark/unmark was not specified. Please type 'mark [number]'
+------------------------------------------------------------------------------------
+Error: The index to mark/unmark was not specified. Please type 'unmark [number]'
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'mark [number]'
+------------------------------------------------------------------------------------
+Error: Too many or too few arguments. Please type 'unmark [number]'
+------------------------------------------------------------------------------------
+                                                    Bye. Hope to see you again soon!
+------------------------------------------------------------------------------------
