@@ -5,8 +5,10 @@ public class Carrot {
 
     public static final int LISTSIZE = 100;
     public static int currentSize = 0;
-    public static boolean exit = false;
+    public static boolean isExit = false;
+    public static boolean isUpdated = false;
     public static ArrayList<Task> taskList = new ArrayList<Task>(LISTSIZE);
+    public static Storage storage;
 
     public static void argsCheck(String[] inputs, int numArgs) {
         if (inputs.length != numArgs) {
@@ -17,8 +19,9 @@ public class Carrot {
     public static void echo(Scanner input) throws CarrotException {
         try {
             String userInput = input.nextLine();
+            isUpdated = false;
             if (userInput.equalsIgnoreCase("bye")) {
-                exit = true;
+                isExit = true;
             } else if (userInput.equalsIgnoreCase("list")) {
                 Prints.printTaskList(taskList, currentSize);
                 Prints.printLine();
@@ -36,6 +39,7 @@ public class Carrot {
                         taskList.get(index).markIncomplete();
                     }
                     Prints.printTaskList(taskList, currentSize);
+                    isUpdated = true;
                 } catch (NumberFormatException e) {
                     System.out.printf("Error: The index to mark/unmark was not specified. Please type '%s [task number]'%n", inputs[0]);
                 } catch (NullPointerException e) {
@@ -55,6 +59,7 @@ public class Carrot {
                     taskList.add(new Event(taskSplit[0], dateSplit[0], dateSplit[1]));
                     System.out.printf("%" + Prints.seperator.length() + "s%n", taskList.get(currentSize).toString());
                     currentSize++;
+                    isUpdated = true;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.printf("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'%n");
                 } finally {
@@ -68,6 +73,7 @@ public class Carrot {
                     taskList.add(new Deadline(taskSplit[0], taskSplit[1]));
                     System.out.printf("%" + Prints.seperator.length() + "s%n", taskList.get(currentSize).toString());
                     currentSize++;
+                    isUpdated = true;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.printf("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'%n");
                 } finally {
@@ -79,6 +85,7 @@ public class Carrot {
                     taskList.add(new Todo(inputs));
                     System.out.printf("%" + Prints.seperator.length() + "s%n", taskList.get(currentSize).toString());
                     currentSize++;
+                    isUpdated = true;
                 } catch (IndexOutOfBoundsException e) {
                     System.out.printf("Error: Too many or too few arguments. Please type 'todo [task]'%n");
                 } finally {
@@ -94,6 +101,7 @@ public class Carrot {
                     taskList.remove(index);
                     System.out.printf("%" + Prints.seperator.length() + "s%n", "Removed the task: " + removable.toString());
                     currentSize--;
+                    isUpdated = true;
                 } catch (NumberFormatException e) {
                     System.out.println("Error: The index to delete was not specified. Please type 'delete [task number]'");
                 } catch (IndexOutOfBoundsException e) {
@@ -104,6 +112,9 @@ public class Carrot {
             } else {
                 throw new CarrotException();
             }
+            if (isUpdated) {
+                storage.save(taskList);
+            }
         } catch (CarrotException e) {
             Prints.invalidCommands();
         }
@@ -111,9 +122,10 @@ public class Carrot {
 
     public static void main(String[] args) {
         try {
+            storage = new Storage("data/taskList.txt");
             Scanner input = new Scanner(System.in);
             Prints.printStart();
-            while (!exit) {
+            while (!isExit) {
                 echo(input);
             }
         } catch (Exception e) {
