@@ -123,6 +123,8 @@ public class Carrot {
     public static void main(String[] args) {
         try {
             storage = new Storage("data/taskList.txt");
+            storage.load(taskList);
+            currentSize = taskList.size();
             Scanner input = new Scanner(System.in);
             Prints.printStart();
             while (!isExit) {

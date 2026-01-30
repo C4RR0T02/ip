@@ -10,6 +10,15 @@ public class Event extends Task {
         System.out.printf("%" + Prints.seperator.length() + "s%n", "New Event Alert: " + this.taskName + " occurring from " + this.startDate + " to " + this.endDate);
     }
 
+    public Event(String taskName, String startDate, String endDate, boolean printStatus) {
+        super(taskName);
+        this.startDate = startDate;
+        this.endDate = endDate;
+        if (printStatus) {
+            System.out.printf("%" + Prints.seperator.length() + "s%n", "New Event Alert: " + this.taskName + " occurring from " + this.startDate + " to " + this.endDate);
+        }
+    }
+
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + this.startDate + " to: " + this.endDate + ")";
