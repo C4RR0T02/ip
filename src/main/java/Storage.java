@@ -24,7 +24,6 @@ public class Storage {
     }
 
     public void save(ArrayList<Task> taskList) {
-        System.out.println("inside Save");
         File file = new File(this.filePath);
         try {
             if (file.getParentFile() != null) {
@@ -34,7 +33,6 @@ public class Storage {
                 file.createNewFile();
             }
             write(taskList);
-            System.out.println("Write to " + file.getAbsolutePath());
         } catch (IOException e) {
             System.out.println("An error occurred.");
         }

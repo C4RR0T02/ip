@@ -109,6 +109,8 @@ public class Carrot {
                 } finally {
                     Prints.printLine();
                 }
+            } else if (userInput.equalsIgnoreCase("help")) {
+                Prints.printHelp();
             } else {
                 throw new CarrotException();
             }

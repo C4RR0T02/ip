@@ -20,6 +20,19 @@ public class Prints {
         printLine();
     }
 
+    public static void printHelp() {
+        System.out.println("HELPPP is hereeee\nWhat do you need help with");
+        System.out.println("Add a todo task: todo <task name>");
+        System.out.println("Add a event: event <event name> /from <start date> /to <end date>");
+        System.out.println("Add a deadline: deadline <deadline name> /by <deadline date>");
+        System.out.println("Delete a Task: delete <task index>");
+        System.out.println("List Tasks: list");
+        System.out.println("Mark Task Completed: mark <task index>");
+        System.out.println("Mark Task Incompleted: unmark <task index>");
+        System.out.println("Exit the program: bye");
+        printLine();
+    }
+
     public static void printExit() {
         System.out.printf("%" + seperator.length() + "s%n", "Bye. Hope to see you again soon!");
         printLine();
