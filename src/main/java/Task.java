@@ -16,6 +16,10 @@ public abstract class Task {
         this.isComplete = false;
     }
 
+    public abstract String getAddPrint();
+
+    public abstract String saveToString();
+
     @Override
     public String toString() {
         return "[" + (this.isComplete?"X":" ") + "] " + this.taskName;

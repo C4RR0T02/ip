@@ -2,20 +2,21 @@ import java.time.LocalDateTime;
 
 public class Deadline extends Task {
 
-    private LocalDateTime dueDate;
+    private final LocalDateTime dueDate;
 
     public Deadline(String taskName, String dueDate) {
         super(taskName);
         this.dueDate = LocalDateTime.parse(dueDate, DateFormatter.FORMATTER);
-        System.out.printf("%" + Prints.seperator.length() + "s%n", "New Deadline Alert: " + this.taskName + " by " + this.dueDate.format(DateFormatter.OUTPUT));
     }
 
-    public Deadline(String taskName, String dueDate, boolean printStatus) {
-        super(taskName);
-        this.dueDate = LocalDateTime.parse(dueDate, DateFormatter.OUTPUT);
-        if (printStatus) {
-            System.out.printf("%" + Prints.seperator.length() + "s%n", "New Deadline Alert: " + this.taskName + " by " + this.dueDate.format(DateFormatter.OUTPUT));
-        }
+    @Override
+    public String getAddPrint() {
+        return "New Deadline Alert: " + this.taskName + " by " + this.dueDate.format(DateFormatter.OUTPUT);
+    }
+
+    @Override
+    public String saveToString() {
+        return "D|" + (this.isComplete?"1":"0") + "|" + this.taskName + "|" + this.dueDate.format(DateFormatter.FORMATTER);
     }
 
     @Override
