@@ -1,3 +1,5 @@
+package Carrot.Task;
+
 public abstract class Task {
 
     protected boolean isComplete;

@@ -1,9 +1,14 @@
+package Carrot;
+
+import Carrot.Task.Deadline;
+import Carrot.Task.Event;
+import Carrot.Task.Task;
+import Carrot.Task.Todo;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-
-    public static boolean isUpdated = false;
 
     public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) throws CarrotException {
         try {
@@ -12,10 +17,10 @@ public class Parser {
             String rootCmd = split[0];
             String args = (split.length > 1) ? split[1] : "";
             ArrayList<Task> tasks = taskList.getTaskList();
-            isUpdated = false;
 
             switch (rootCmd) {
             case "bye":
+                ui.setExit();
                 break;
             case "list":
                 ui.printTaskList(tasks);
@@ -71,7 +76,7 @@ public class Parser {
         }
     }
 
-    public void unmark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException  {
+    public void unmark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.size();
         try {
             int index = getIndex(args, taskListSize);
@@ -106,6 +111,9 @@ public class Parser {
 
     public void addEvent(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
+            if (args.isEmpty()) {
+                throw new CarrotException("Event requires event name, event start date, and event end date%n");
+            }
             String[] taskSplit = args.split("/from ", 2);
             String eventName = taskSplit[0].trim();
             String[] timeFrame = taskSplit[1].split("/to ", 2);
@@ -124,6 +132,9 @@ public class Parser {
 
     public void addDeadline(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
+            if (args.isEmpty()) {
+                throw new CarrotException("Deadline requires a task name, and deadline date%n");
+            }
             String[] taskSplit = args.split("/by ", 2);
             String eventName = taskSplit[0].trim();
             String deadline = taskSplit[1].trim();

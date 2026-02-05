@@ -1,3 +1,7 @@
+package Carrot;
+
+import Carrot.Task.Task;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -75,6 +79,10 @@ public class Ui {
         isExit = true;
         System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "Bye. Hope to see you again soon!");
         printLine();
+    }
+
+    public void setExit() {
+        this.isExit = !this.isExit;
     }
 
     public boolean isExit() {

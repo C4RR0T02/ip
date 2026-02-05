@@ -1,3 +1,10 @@
+package Carrot;
+
+import Carrot.Task.Deadline;
+import Carrot.Task.Event;
+import Carrot.Task.Task;
+import Carrot.Task.Todo;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -13,7 +20,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    public ArrayList<Task> load() throws CarrotException{
+    public ArrayList<Task> load() throws CarrotException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(this.filePath);
         if (file.exists()) {
