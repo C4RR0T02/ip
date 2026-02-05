@@ -1,3 +1,5 @@
+package Carrot;
+
 import java.util.Scanner;
 
 public class Carrot {
