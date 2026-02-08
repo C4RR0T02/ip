@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTest {
+
+    @Test
+    public void getTaskName_validName_returnsCorrectName() {
+        Todo todo = new Todo("read book");
+        assertEquals("read book", todo.getTaskName());
+    }
+
     @Test
     public void getAddPrint_validTaskName_returnsCorrectMessages(){
         Todo todo = new Todo("read book");

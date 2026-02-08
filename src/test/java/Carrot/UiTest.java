@@ -45,7 +45,7 @@ class UiTest {
         ArrayList<Task> emptyList = new ArrayList<>();
         ui.printTaskList(emptyList);
 
-        assertEquals("Empty", outputStreamCaptor.toString().trim());
+        assertEquals("Empty Results ʕ•́ᴥ•̀ʔっ", outputStreamCaptor.toString().trim());
     }
 
     @Test

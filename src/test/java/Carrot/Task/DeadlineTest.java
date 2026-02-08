@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
+
+    @Test
+    public void getTaskName_validName_returnsCorrectName() {
+        Deadline deadline = new Deadline("Complete CS2103T Task", "2025-02-15");
+        assertEquals("Complete CS2103T Task", deadline.getTaskName());
+    }
+
     @Test
     public void getAddPrint_validTaskName_returnsCorrectMessages(){
         Deadline deadline = new Deadline("Complete CS2103T Task", "2025-02-15");
