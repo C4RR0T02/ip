@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class Ui {
 
-    private static final String SEPERATOR = "-".repeat(80);
-    private static final int SEPERATOR_LENGTH = SEPERATOR.length();
+    private static final String SEPARATOR = "-".repeat(80);
+    private static final int SEPARATOR_LENGTH = SEPARATOR.length();
     private boolean isExit;
 
     public Ui() {
@@ -15,7 +15,7 @@ public class Ui {
     }
 
     public void printLine() {
-        System.out.println(SEPERATOR);
+        System.out.println(SEPARATOR);
     }
 
     public void showWelcome() {
@@ -47,12 +47,12 @@ public class Ui {
     }
 
     public void printAddTask(Task task) {
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", task.getAddPrint());
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", task);
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", task.getAddPrint());
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", task);
     }
 
     public void printDeleteTask(Task task) {
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "Removed the task: " + task);
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Removed the task: " + task);
     }
 
     public void printTaskList(ArrayList<Task> list) {
@@ -66,18 +66,18 @@ public class Ui {
     }
 
     public void showInvalidCommands() {
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "hmmmmm, I can't seem to find a command for that");
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "Try screaming \"help\" for the full list of commands");
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "hmmmmm, I can't seem to find a command for that");
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Try screaming \"help\" for the full list of commands");
         printLine();
     }
 
     public void showLoadingError() {
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "Failed to load task list from saved file");
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Failed to load task list from saved file");
     }
 
     public void exit() {
         isExit = true;
-        System.out.printf("%" + SEPERATOR_LENGTH + "s%n", "Bye. Hope to see you again soon!");
+        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Bye. Hope to see you again soon!");
         printLine();
     }
 

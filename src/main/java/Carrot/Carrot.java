@@ -8,11 +8,16 @@ public class Carrot {
     private final TaskList taskList;
     private final Parser parser;
     private final Ui ui;
+    public static final String DEFAULT_FILEPATH = "data/carrot.txt";
 
-    public Carrot(String filePath) {
+    private Carrot(String filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
-        this.storage = new Storage(filePath);
+        if (!filePath.isEmpty()) {
+            this.storage = new Storage(filePath);
+        } else {
+            this.storage = new Storage(DEFAULT_FILEPATH);
+        }
         this.taskList = new TaskList(storage);
         try {
             taskList.loadTaskList();
@@ -22,7 +27,8 @@ public class Carrot {
     }
 
     public static void main(String[] args) {
-        Carrot carrot = new Carrot("data/taskList.txt");
+        String path = (args.length > 0) ? args[0] : "";
+        Carrot carrot = new Carrot(path);
         Scanner input = new Scanner(System.in);
         carrot.ui.showWelcome();
         try {

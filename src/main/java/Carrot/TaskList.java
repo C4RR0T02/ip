@@ -25,6 +25,7 @@ public class TaskList {
     public Task deleteTask(int index) {
         Task removable = this.taskList.get(index);
         this.taskList.remove(removable);
+        storage.save(this.taskList);
         return removable;
     }
 
