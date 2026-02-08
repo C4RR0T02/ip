@@ -8,6 +8,11 @@ public class Deadline extends Task {
 
     private final LocalDateTime dueDate;
 
+    /**
+     * Constructor for Deadline class
+     * @param taskName Name of the deadline task
+     * @param dueDate Due date and time of the task in "yyyy-MM-dd HH:mm" format
+     */
     public Deadline(String taskName, String dueDate) {
         super(taskName);
         this.dueDate = LocalDateTime.parse(dueDate, DateFormatter.FORMATTER);

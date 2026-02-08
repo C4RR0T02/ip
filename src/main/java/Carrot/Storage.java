@@ -16,10 +16,19 @@ import java.util.Objects;
 public class Storage {
     private final String filePath;
 
+    /**
+     * Constructor for Storage class
+     * @param filePath Path to the file where tasks are stored
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads the task list from the file
+     * @return Tasks loaded from the file
+     * @throws CarrotException     if there is an error reading the file
+     */
     public ArrayList<Task> load() throws CarrotException {
         ArrayList<Task> taskList = new ArrayList<>();
         File file = new File(this.filePath);
@@ -29,6 +38,10 @@ public class Storage {
         return taskList;
     }
 
+    /**
+     * Saves the task list to the file
+     * @param taskList List of tasks to be saved
+     */
     public void save(ArrayList<Task> taskList) {
         File file = new File(this.filePath);
         try {
@@ -44,6 +57,9 @@ public class Storage {
         }
     }
 
+    /** Writes the task list to the file
+     * @param taskList List of tasks to be written
+     */
     private void write(ArrayList<Task> taskList) {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task t : taskList) {
@@ -54,6 +70,10 @@ public class Storage {
         }
     }
 
+    /** Reads the task list from the file
+     * @param taskList List of tasks to be populated
+     * @throws CarrotException if there is an error reading the file
+     */
     private void read(ArrayList<Task> taskList) throws CarrotException {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String data;
@@ -83,6 +103,10 @@ public class Storage {
         }
     }
 
+    /** Checks and sets the task status based on the saved data
+     * @param task Task to be updated
+     * @param taskStatus Status of the task in string format
+     */
     private void checkAndSetTaskStatus(Task task, String taskStatus) {
         if (Objects.equals(taskStatus, "1")) {
             task.markCompleted();

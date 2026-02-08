@@ -10,6 +10,10 @@ public class Carrot {
     private final Ui ui;
     public static final String DEFAULT_FILEPATH = "data/carrot.txt";
 
+    /**
+     * Constructor for Carrot class
+     * @param filePath Path to the file where tasks are stored
+     */
     private Carrot(String filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
@@ -26,6 +30,10 @@ public class Carrot {
         }
     }
 
+    /**
+     * Main method to run the Carrot application
+     * @param args Command line arguments
+     */
     public static void main(String[] args) {
         String path = (args.length > 0) ? args[0] : "";
         Carrot carrot = new Carrot(path);
