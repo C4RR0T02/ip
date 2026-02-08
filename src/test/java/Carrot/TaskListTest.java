@@ -63,6 +63,39 @@ class TaskListTest {
     }
 
     @Test
+    void findTasks_keywordExists_addsToArrayList() {
+        taskList.addTask(new Todo("Buy fresh carrots"));
+        taskList.addTask(new Todo("Eat healthy cake"));
+        taskList.addTask(new Todo("Cook carrot soup"));
+
+        ArrayList<Task> results = new ArrayList<>();
+
+        taskList.findTasks("carrot", results);
+        assertEquals(2, results.size(), "Should find exactly 2 tasks containing 'carrot'");
+        assertTrue(results.get(0).toString().contains("fresh carrots"));
+        assertTrue(results.get(1).toString().contains("carrot soup"));
+    }
+
+    @Test
+    void findTasks_partialKeyword_findsMatches() {
+        taskList.addTask(new Todo("Internationalization"));
+        ArrayList<Task> results = new ArrayList<>();
+
+        taskList.findTasks("nation", results);
+        assertEquals(1, results.size());
+        assertTrue(results.get(0).toString().contains("Internationalization"));
+    }
+
+    @Test
+    void findTasks_keywordDoesNotExist_arrayListRemainsEmpty() {
+        taskList.addTask(new Todo("Buy milk"));
+        ArrayList<Task> results = new ArrayList<>();
+
+        taskList.findTasks("carrot", results);
+        assertTrue(results.isEmpty(), "Results list should be empty when no matches are found");
+    }
+
+    @Test
     void deleteTask_invalidIndex_throwsException() {
         assertThrows(IndexOutOfBoundsException.class, () -> {
             taskList.deleteTask(99);

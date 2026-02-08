@@ -54,4 +54,18 @@ public class TaskList {
     public void loadTaskList() throws CarrotException {
         this.tasks = storage.load();
     }
+
+    /**
+     * Finds tasks that contain the given keyword and adds them to the provided array list.
+     *
+     * @param keyword   The keyword to search for within task names.
+     * @param arrayList The array list to store found tasks.
+     */
+    public void findTasks(String keyword, ArrayList<Task> arrayList) {
+        for (Task task : this.taskList) {
+            if (task.getTaskName().contains(keyword)) {
+                arrayList.add(task);
+            }
+        }
+    }
 }

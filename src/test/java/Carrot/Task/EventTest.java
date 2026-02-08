@@ -7,6 +7,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class EventTest {
 
     @Test
+    public void getTaskName_validName_returnsCorrectName() {
+        Event event = new Event("CCA Training", "2025-02-15", "2025-02-15");
+        assertEquals("CCA Training", event.getTaskName());
+    }
+
+    @Test
     public void getAddPrint_validTaskName_returnsCorrectMessages(){
         Event event = new Event("CCA Training", "2025-02-15", "2025-02-15");
         assertEquals("New Event Alert: CCA Training occurring from 15-02-2025 00:00 to 15-02-2025 00:00", event.getAddPrint());

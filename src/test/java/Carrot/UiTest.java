@@ -42,15 +42,13 @@ class UiTest {
     @Test
     void testPrintTaskList_emptyList_printsEmpty() {
         ArrayList<Task> emptyList = new ArrayList<>();
-
         ui.printTaskList(emptyList);
-        assertEquals("Empty", outputStreamCaptor.toString().trim());
+        assertEquals("Empty Results ʕ•́ᴥ•̀ʔっ", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void testPrintTaskList_populatedList_printsTasks() {
         ArrayList<Task> list = new ArrayList<>();
-        
         list.add(new Todo("Buy Milk"));
         ui.printTaskList(list);
         String output = outputStreamCaptor.toString();
