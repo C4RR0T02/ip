@@ -31,10 +31,10 @@ class TaskListTest {
     @Test
     void addTask_addsToListAndSaves() throws CarrotException {
         Task todo = new Todo("Test Task");
+        
         taskList.addTask(todo);
-
-        assertEquals(1, taskList.getTaskList().size());
-        assertEquals(todo, taskList.getTaskList().get(0));
+        assertEquals(1, taskList.getTasks().size());
+        assertEquals(todo, taskList.getTasks().get(0));
 
         ArrayList<Task> savedTasks = storage.load();
         assertEquals(1, savedTasks.size());
@@ -44,24 +44,22 @@ class TaskListTest {
     @Test
     void deleteTask_removesTaskAndReturnsIt() {
         Task todo = new Todo("Delete Me");
+
         taskList.addTask(todo);
-
         Task deleted = taskList.deleteTask(0);
-
         assertEquals(todo, deleted, "deleteTask should return the task that was removed");
-        assertEquals(0, taskList.getTaskList().size(), "List should be empty after deletion");
+        assertEquals(0, taskList.getTasks().size(), "List should be empty after deletion");
     }
 
     @Test
     void loadTaskList_updatesMemoryFromStorage() throws CarrotException {
         ArrayList<Task> initialData = new ArrayList<>();
+
         initialData.add(new Todo("Initial Task"));
         storage.save(initialData);
-
         taskList.loadTaskList();
-
-        assertEquals(1, taskList.getTaskList().size());
-        assertTrue(taskList.getTaskList().get(0).toString().contains("Initial Task"));
+        assertEquals(1, taskList.getTasks().size());
+        assertTrue(taskList.getTasks().get(0).toString().contains("Initial Task"));
     }
 
     @Test

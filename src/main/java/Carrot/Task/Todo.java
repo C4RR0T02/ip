@@ -13,7 +13,7 @@ public class Todo extends Task {
 
     @Override
     public String saveToString() {
-        return "T|" + (this.isComplete?"1":"0") + "|" + this.taskName;
+        return "T|" + (this.isComplete ? "1" : "0") + "|" + this.taskName;
     }
 
     @Override

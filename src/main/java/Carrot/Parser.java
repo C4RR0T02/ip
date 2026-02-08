@@ -9,14 +9,14 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-    
+
     public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) {
         try {
             String userInput = input.nextLine();
             String[] split = userInput.split(" ", 2);
             String rootCmd = split[0];
             String args = (split.length > 1) ? split[1] : "";
-            ArrayList<Task> tasks = taskList.getTaskList();
+            ArrayList<Task> tasks = taskList.getTasks();
 
             switch (rootCmd) {
             case "bye":
@@ -122,7 +122,7 @@ public class Parser {
             Task newTask = new Event(eventName, from, to);
             taskList.addTask(newTask);
             ui.printAddTask(newTask);
-            storage.save(taskList.getTaskList());
+            storage.save(taskList.getTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new CarrotException("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'");
         } finally {
@@ -141,7 +141,7 @@ public class Parser {
             Task newTask = new Deadline(eventName, deadline);
             taskList.addTask(newTask);
             ui.printAddTask(newTask);
-            storage.save(taskList.getTaskList());
+            storage.save(taskList.getTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new CarrotException("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'");
         } finally {
@@ -157,7 +157,7 @@ public class Parser {
             Task newTask = new Todo(args);
             taskList.addTask(newTask);
             ui.printAddTask(newTask);
-            storage.save(taskList.getTaskList());
+            storage.save(taskList.getTasks());
         } catch (IndexOutOfBoundsException e) {
             throw new CarrotException("Error: Too many or too few arguments. Please type 'todo [task name]'");
         } finally {
@@ -166,12 +166,12 @@ public class Parser {
     }
 
     public void deleteTask(Ui ui, TaskList taskList, String args, Storage storage) throws CarrotException {
-        int taskListSize = taskList.getTaskList().size();
+        int taskListSize = taskList.getTasks().size();
         try {
             int index = getIndex(args, taskListSize);
             Task removable = taskList.deleteTask(index);
             ui.printDeleteTask(removable);
-            storage.save(taskList.getTaskList());
+            storage.save(taskList.getTasks());
         } catch (NumberFormatException e) {
             System.out.println("Error: The index to delete was not specified. Please type 'delete [task number]'");
         } catch (NullPointerException e) {

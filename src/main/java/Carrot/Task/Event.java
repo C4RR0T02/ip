@@ -22,7 +22,7 @@ public class Event extends Task {
 
     @Override
     public String saveToString() {
-        return "E|" + (this.isComplete?"1":"0") + "|" + this.taskName + "|" + this.startDate.format(DateFormatter.FORMATTER) + "|" + this.endDate.format(DateFormatter.FORMATTER);
+        return "E|" + (this.isComplete ? "1" : "0") + "|" + this.taskName + "|" + this.startDate.format(DateFormatter.FORMATTER) + "|" + this.endDate.format(DateFormatter.FORMATTER);
     }
 
     @Override

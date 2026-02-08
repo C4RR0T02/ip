@@ -9,13 +9,19 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class TaskTest {
 
     private static class TaskStub extends Task {
-        public TaskStub(String name) { super(name); }
+        public TaskStub(String name) {
+            super(name);
+        }
 
         @Override
-        public String getAddPrint() { return "stub"; }
+        public String getAddPrint() {
+            return "stub";
+        }
 
         @Override
-        public String saveToString() { return "stub_save"; }
+        public String saveToString() {
+            return "stub_save";
+        }
     }
 
     @Test

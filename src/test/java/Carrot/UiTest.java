@@ -35,7 +35,6 @@ class UiTest {
     void testShowWelcome_printsCorrectMessages() {
         ui.showWelcome();
         String output = outputStreamCaptor.toString();
-
         assertTrue(output.contains("Hello! I'm C4RR0T"));
         assertTrue(output.contains("What can I do for you?"));
     }
@@ -43,17 +42,17 @@ class UiTest {
     @Test
     void testPrintTaskList_emptyList_printsEmpty() {
         ArrayList<Task> emptyList = new ArrayList<>();
-        ui.printTaskList(emptyList);
 
+        ui.printTaskList(emptyList);
         assertEquals("Empty", outputStreamCaptor.toString().trim());
     }
 
     @Test
     void testPrintTaskList_populatedList_printsTasks() {
         ArrayList<Task> list = new ArrayList<>();
+        
         list.add(new Todo("Buy Milk"));
         ui.printTaskList(list);
-
         String output = outputStreamCaptor.toString();
         assertTrue(output.contains("1 [T] [ ] Buy Milk"));
     }

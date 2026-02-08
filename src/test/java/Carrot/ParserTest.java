@@ -36,10 +36,9 @@ class ParserTest {
     @Test
     void addTodo_validArgs_addsTask() throws CarrotException {
         parser.addTodo(ui, "Read Book", taskList, storage);
-
-        assertEquals(1, taskList.getTaskList().size());
-        assertInstanceOf(Todo.class, taskList.getTaskList().get(0));
-        assertEquals("Read Book", taskList.getTaskList().get(0).toString().contains("Read Book") ? "Read Book" : "");
+        assertEquals(1, taskList.getTasks().size());
+        assertInstanceOf(Todo.class, taskList.getTasks().get(0));
+        assertEquals("Read Book", taskList.getTasks().get(0).toString().contains("Read Book") ? "Read Book" : "");
     }
 
     @Test
@@ -52,8 +51,7 @@ class ParserTest {
     @Test
     void addDeadline_validArgs_parsesCorrectly() throws CarrotException {
         parser.addDeadline(ui, "Submit Report /by 2026-02-08 23:59", taskList, storage);
-
-        Task task = taskList.getTaskList().get(0);
+        Task task = taskList.getTasks().get(0);
         assertInstanceOf(Deadline.class, task);
         assertTrue(task.toString().contains("Submit Report"));
     }
@@ -68,10 +66,8 @@ class ParserTest {
     @Test
     void mark_validIndex_updatesTask() throws CarrotException {
         taskList.addTask(new Todo("Initial Task"));
-
-        parser.mark(ui, taskList.getTaskList(), "1", storage);
-
-        assertTrue(taskList.getTaskList().get(0).toString().contains("[X]"));
+        parser.mark(ui, taskList.getTasks(), "1", storage);
+        assertTrue(taskList.getTasks().get(0).toString().contains("[X]"));
     }
 
     @Test

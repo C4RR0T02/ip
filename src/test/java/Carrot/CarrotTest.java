@@ -41,7 +41,6 @@ class CarrotTest {
         Path testFilePath = tempDir.resolve("test_tasks.txt");
         String testPathString = testFilePath.toString();
 
-        // Simulate User Input
         String simulatedInput = "todo Save the world" + System.lineSeparator() + "bye";
         System.setIn(new ByteArrayInputStream(simulatedInput.getBytes()));
 
@@ -53,7 +52,6 @@ class CarrotTest {
 
             Storage testStorage = new Storage(testPathString);
             assertEquals(1, testStorage.load().size(), "Should have saved 1 task to the temp file");
-
         } catch (Exception e) {
             fail("Test crashed: " + e.getMessage());
         }

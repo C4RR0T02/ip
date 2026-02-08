@@ -6,31 +6,31 @@ import java.util.ArrayList;
 
 public class TaskList {
 
-    private ArrayList<Task> taskList;
+    private ArrayList<Task> tasks;
     private final Storage storage;
 
     public TaskList(Storage storage) {
         this.storage = storage;
-        this.taskList = new ArrayList<>();
+        this.tasks = new ArrayList<>();
     }
 
-    public ArrayList<Task> getTaskList() {
-        return this.taskList;
+    public ArrayList<Task> getTasks() {
+        return this.tasks;
     }
 
     public void addTask(Task newTask) {
-        this.taskList.add(newTask);
-        storage.save(this.taskList);
+        this.tasks.add(newTask);
+        storage.save(this.tasks);
     }
 
     public Task deleteTask(int index) {
-        Task removable = this.taskList.get(index);
-        this.taskList.remove(removable);
-        storage.save(this.taskList);
+        Task removable = this.tasks.get(index);
+        this.tasks.remove(removable);
+        storage.save(this.tasks);
         return removable;
     }
 
     public void loadTaskList() throws CarrotException {
-        this.taskList = storage.load();
+        this.tasks = storage.load();
     }
 }

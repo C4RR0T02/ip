@@ -20,7 +20,7 @@ public class Deadline extends Task {
 
     @Override
     public String saveToString() {
-        return "D|" + (this.isComplete?"1":"0") + "|" + this.taskName + "|" + this.dueDate.format(DateFormatter.FORMATTER);
+        return "D|" + (this.isComplete ? "1" : "0") + "|" + this.taskName + "|" + this.dueDate.format(DateFormatter.FORMATTER);
     }
 
     @Override
