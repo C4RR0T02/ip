@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Parser {
 
-    public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) throws CarrotException {
+    public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) {
         try {
             String userInput = input.nextLine();
             String[] split = userInput.split(" ", 2);
@@ -62,15 +62,15 @@ public class Parser {
             ui.printTaskList(taskList);
             storage.save(taskList);
         } catch (NumberFormatException e) {
-            throw new CarrotException("Error: The index to mark was not specified. Please type 'mark [task number]'%n");
+            throw new CarrotException("Error: The index to mark was not specified. Please type 'mark [task number]'");
         } catch (NullPointerException e) {
             throw new CarrotException("Error: There is "
                     + taskListSize
                     + "items currently in the list. Please type 'mark [task number]' where task number is less than "
                     + taskListSize
-                    + " or add to the list first%n");
+                    + " or add to the list first");
         } catch (IndexOutOfBoundsException e) {
-            throw new CarrotException("Error: Too many or too few arguments. Please type 'mark [task number]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'mark [task number]'");
         } finally {
             ui.printLine();
         }
@@ -84,15 +84,15 @@ public class Parser {
             ui.printTaskList(taskList);
             storage.save(taskList);
         } catch (NumberFormatException e) {
-            throw new CarrotException("Error: The index to unmark was not specified. Please type 'unmark [task number]'%n");
+            throw new CarrotException("Error: The index to unmark was not specified. Please type 'unmark [task number]'");
         } catch (NullPointerException e) {
             throw new CarrotException("Error: There is "
                     + taskListSize
                     + "items currently in the list. Please type 'unmark [task number]' where task number is less than "
                     + taskListSize
-                    + " or add to the list first%n");
+                    + " or add to the list first");
         } catch (IndexOutOfBoundsException e) {
-            throw new CarrotException("Error: Too many or too few arguments. Please type 'unmark [task number]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'unmark [task number]'");
         } finally {
             ui.printLine();
         }
@@ -112,7 +112,7 @@ public class Parser {
     public void addEvent(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
-                throw new CarrotException("Event requires event name, event start date, and event end date%n");
+                throw new CarrotException("Event requires event name, event start date, and event end date");
             }
             String[] taskSplit = args.split("/from ", 2);
             String eventName = taskSplit[0].trim();
@@ -124,7 +124,7 @@ public class Parser {
             ui.printAddTask(newTask);
             storage.save(taskList.getTaskList());
         } catch (IndexOutOfBoundsException e) {
-            throw new CarrotException("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'event [event name] /from [start date] /to [end date]'");
         } finally {
             ui.printLine();
         }
@@ -133,7 +133,7 @@ public class Parser {
     public void addDeadline(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
-                throw new CarrotException("Deadline requires a task name, and deadline date%n");
+                throw new CarrotException("Deadline requires a task name, and deadline date");
             }
             String[] taskSplit = args.split("/by ", 2);
             String eventName = taskSplit[0].trim();
@@ -143,7 +143,7 @@ public class Parser {
             ui.printAddTask(newTask);
             storage.save(taskList.getTaskList());
         } catch (IndexOutOfBoundsException e) {
-            throw new CarrotException("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'");
         } finally {
             ui.printLine();
         }
@@ -152,14 +152,14 @@ public class Parser {
     public void addTodo(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
-                throw new CarrotException("Todo requires a task name%n");
+                throw new CarrotException("Todo requires a task name");
             }
             Task newTask = new Todo(args);
             taskList.addTask(newTask);
             ui.printAddTask(newTask);
             storage.save(taskList.getTaskList());
         } catch (IndexOutOfBoundsException e) {
-            throw new CarrotException("Error: Too many or too few arguments. Please type 'todo [task name]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'todo [task name]'");
         } finally {
             ui.printLine();
         }
@@ -179,9 +179,9 @@ public class Parser {
                     + taskListSize
                     + "items currently in the list. Please type 'delete [task number]' where task number is less than "
                     + taskListSize
-                    + " or add to the list first%n");
+                    + " or add to the list first");
         }catch (IndexOutOfBoundsException e) {
-            System.out.printf("Error: Too many or too few arguments. Please type 'delete [task number]'%n");
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'delete [task number]'");
         } finally {
             ui.printLine();
         }
