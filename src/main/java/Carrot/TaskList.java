@@ -62,7 +62,7 @@ public class TaskList {
      * @param arrayList The array list to store found tasks.
      */
     public void findTasks(String keyword, ArrayList<Task> arrayList) {
-        for (Task task : this.taskList) {
+        for (Task task : this.getTasks()) {
             if (task.getTaskName().contains(keyword)) {
                 arrayList.add(task);
             }
