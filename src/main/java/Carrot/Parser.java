@@ -10,6 +10,14 @@ import java.util.Scanner;
 
 public class Parser {
 
+    /**
+     * Processes user input commands and executes the corresponding task operations.
+     *
+     * @param ui The user interface handler used to display feedback and messages.
+     * @param input The Scanner source used to read the user's raw input strings.
+     * @param taskList The manager containing the current list of tasks to be modified.
+     * @param storage The storage handler used to persist task data after modifications.
+     */
     public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) {
         try {
             String userInput = input.nextLine();
@@ -54,6 +62,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Marks a task as completed based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param taskList          The list of tasks to be modified.
+     * @param args              The arguments provided by the user, expected to contain the task index.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task modification.
+     */
     public void mark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.size();
         try {
@@ -76,6 +93,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Unmarks a task as completed based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param taskList          The list of tasks to be modified.
+     * @param args              The arguments provided by the user, expected to contain the task index.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task modification.
+     */
     public void unmark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.size();
         try {
@@ -98,6 +124,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Converts user input into a valid task index.
+     *
+     * @param args              The user input string representing the task index.
+     * @param taskListSize      The current size of the task list.
+     * @return                  The zero-based index of the task.
+     * @throws CarrotException  If the index is out of range or negative.
+     */
     private static int getIndex(String args, int taskListSize) throws CarrotException {
         int index = Integer.parseInt(args) - 1;
         if (taskListSize < index) {
@@ -109,6 +143,15 @@ public class Parser {
         return index;
     }
 
+    /**
+     * Adds an event task to the task list based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param args              The arguments provided by the user, expected to contain event details.
+     * @param taskList          The manager containing the current list of tasks to be modified.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task addition.
+     */
     public void addEvent(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
@@ -130,6 +173,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a deadline task to the task list based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param args              The arguments provided by the user, expected to contain deadline details.
+     * @param taskList          The manager containing the current list of tasks to be modified.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task addition.
+     */
     public void addDeadline(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
@@ -149,6 +201,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Adds a todo task to the task list based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param args              The arguments provided by the user, expected to contain the todo task name.
+     * @param taskList          The manager containing the current list of tasks to be modified.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task addition.
+     */
     public void addTodo(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         try {
             if (args.isEmpty()) {
@@ -165,6 +226,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Deletes a task from the task list based on user input.
+     *
+     * @param ui                The user interface handler used to display feedback and messages.
+     * @param taskList          The manager containing the current list of tasks to be modified.
+     * @param args              The arguments provided by the user, expected to contain the task index.
+     * @param storage           The storage handler used to persist task data after modification.
+     * @throws CarrotException  If there are issues with the input or task deletion.
+     */
     public void deleteTask(Ui ui, TaskList taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.getTasks().size();
         try {

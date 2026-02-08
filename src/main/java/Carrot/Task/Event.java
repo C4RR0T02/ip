@@ -9,6 +9,12 @@ public class Event extends Task {
     private final LocalDateTime startDate;
     private final LocalDateTime endDate;
 
+    /**
+     * Constructor for Event class
+     * @param taskName Name of the event task
+     * @param startDate Start date and time of the event in "yyyy-MM-dd HH:mm" format
+     * @param endDate End date and time of the event in "yyyy-MM-dd HH:mm" format
+     */
     public Event(String taskName, String startDate, String endDate) {
         super(taskName);
         this.startDate = LocalDateTime.parse(startDate, DateFormatter.FORMATTER);

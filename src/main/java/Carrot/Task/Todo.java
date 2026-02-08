@@ -2,6 +2,10 @@ package Carrot.Task;
 
 public class Todo extends Task {
 
+    /**
+     * Constructor for Todo class
+     * @param taskName Name of the todo task
+     */
     public Todo(String taskName) {
         super(taskName);
     }
