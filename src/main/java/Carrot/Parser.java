@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Parser {
-
+    
     public void command(Ui ui, Scanner input, TaskList taskList, Storage storage) {
         try {
             String userInput = input.nextLine();
@@ -186,5 +186,4 @@ public class Parser {
             ui.printLine();
         }
     }
-
 }

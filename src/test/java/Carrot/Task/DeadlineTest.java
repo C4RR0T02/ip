@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DeadlineTest {
+
     @Test
     public void getAddPrint_validTaskName_returnsCorrectMessages(){
         Deadline deadline = new Deadline("Complete CS2103T Task", "2025-02-15");

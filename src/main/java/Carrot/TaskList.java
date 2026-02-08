@@ -5,6 +5,7 @@ import Carrot.Task.Task;
 import java.util.ArrayList;
 
 public class TaskList {
+
     private ArrayList<Task> taskList;
     private final Storage storage;
 

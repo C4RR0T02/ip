@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DateFormatterTest {
+
     @Test
     void testFormatter_withTime_success() {
         String input = "2026-02-08 15:30";

@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TaskTest {
+
     private static class TaskStub extends Task {
         public TaskStub(String name) { super(name); }
 
