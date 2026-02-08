@@ -10,6 +10,15 @@ public abstract class Task {
         this.isComplete = false;
     }
 
+    /**
+     * Returns the name of the task.
+     *
+     * @return The name of the task.
+     */
+    public String getTaskName() {
+        return this.taskName;
+    }
+
     public void markCompleted() {
         this.isComplete = true;
     }

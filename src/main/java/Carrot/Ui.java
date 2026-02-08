@@ -57,7 +57,7 @@ public class Ui {
 
     public void printTaskList(ArrayList<Task> list) {
         if (list.isEmpty()) {
-            System.out.println("Empty");
+            System.out.println("Empty Results ʕ•́ᴥ•̀ʔっ");
             return;
         }
         for (int index = 1; index < (list.size() + 1); index++) {

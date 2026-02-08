@@ -44,6 +44,9 @@ public class Parser {
             case "todo":
                 addTodo(ui, args, taskList, storage);
                 break;
+            case "find":
+                findTask(ui, args, taskList);
+                break;
             case "help":
                 ui.printHelp();
                 break;
@@ -187,4 +190,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Finds tasks in the task list that match the given keyword.
+     *
+     * @param ui                The user interface to print messages.
+     * @param args              The keyword to search for.
+     * @param taskList          The task list to search within.
+     * @throws CarrotException  If there is an error with the input arguments.
+     */
+    public void findTask(Ui ui, String args, TaskList taskList) throws CarrotException {
+        try {
+            if (args.isEmpty()) {
+                throw new CarrotException("Find requires a keyword to search for");
+            }
+            ArrayList<Task> foundTasks = new ArrayList<>();
+            taskList.findTasks(args, foundTasks);
+            ui.printTaskList(foundTasks);
+        } catch (IndexOutOfBoundsException e) {
+            throw new CarrotException("Error: Too many or too few arguments. Please type 'find [keyword]'");
+        } finally {
+            ui.printLine();
+        }
+    }
 }
