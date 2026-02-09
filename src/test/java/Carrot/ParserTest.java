@@ -55,9 +55,7 @@ class ParserTest {
 
     @Test
     void addTodo_emptyArgs_throwsException() {
-        assertThrows(CarrotException.class, () -> {
-            parser.addTodo(ui, "", taskList, storage);
-        });
+        assertThrows(CarrotException.class, () -> parser.addTodo(ui, "", taskList, storage));
     }
 
     @Test
@@ -70,9 +68,10 @@ class ParserTest {
 
     @Test
     void addDeadline_missingBy_throwsException() {
-        assertThrows(CarrotException.class, () -> {
-            parser.addDeadline(ui, "Submit Report 2026-02-08", taskList, storage);
-        });
+        assertThrows(CarrotException.class, () -> parser.addDeadline(ui,
+                "Submit Report 2026-02-08",
+                taskList,
+                storage));
     }
 
     @Test
@@ -84,9 +83,7 @@ class ParserTest {
 
     @Test
     void getIndex_invalidNumber_throwsException() {
-        assertThrows(CarrotException.class, () -> {
-            parser.deleteTask(ui, taskList, "100", storage);
-        });
+        assertThrows(CarrotException.class, () -> parser.deleteTask(ui, taskList, "100", storage));
     }
 
     @Test
@@ -100,9 +97,7 @@ class ParserTest {
 
     @Test
     void findTask_emptyArgs_throwsCarrotException() {
-        assertThrows(CarrotException.class, () -> {
-            parser.findTask(ui, "", taskList);
-        });
+        assertThrows(CarrotException.class, () -> parser.findTask(ui, "", taskList));
     }
 
     @Test
