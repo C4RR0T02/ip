@@ -1,5 +1,9 @@
-package Carrot.Task;
+package carrot.task;
 
+/**
+ * Abstract class representing a general Task.
+ * Contains common attributes and methods for all task types.
+ */
 public abstract class Task {
 
     protected boolean isComplete;
@@ -55,6 +59,6 @@ public abstract class Task {
      */
     @Override
     public String toString() {
-        return "[" + (this.isComplete? "X" : " ") + "] " + this.taskName;
+        return "[" + (this.isComplete ? "X" : " ") + "] " + this.taskName;
     }
 }

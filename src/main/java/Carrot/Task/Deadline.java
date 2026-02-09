@@ -1,9 +1,13 @@
-package Carrot.Task;
-
-import Carrot.DateFormatter;
+package carrot.task;
 
 import java.time.LocalDateTime;
 
+import carrot.DateFormatter;
+
+/**
+ * Represents a deadline task with a specific due date and time.
+ * Extends the Task class to add deadline-specific functionality.
+ */
 public class Deadline extends Task {
 
     private final LocalDateTime dueDate;
@@ -25,7 +29,12 @@ public class Deadline extends Task {
 
     @Override
     public String saveToString() {
-        return "D|" + (this.isComplete ? "1" : "0") + "|" + this.taskName + "|" + this.dueDate.format(DateFormatter.FORMATTER);
+        return "D|"
+                + (this.isComplete ? "1" : "0")
+                + "|"
+                + this.taskName
+                + "|"
+                + this.dueDate.format(DateFormatter.FORMATTER);
     }
 
     @Override

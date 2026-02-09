@@ -1,9 +1,12 @@
-package Carrot;
-
-import Carrot.Task.Task;
+package carrot;
 
 import java.util.ArrayList;
 
+import carrot.task.Task;
+
+/**
+ * Handles user interface interactions, including displaying messages and prompts.
+ */
 public class Ui {
 
     private static final String SEPARATOR = "-".repeat(80);
@@ -29,12 +32,12 @@ public class Ui {
      */
     public void showWelcome() {
         String logo = """
-         ____                     _
-        / ___| __ _ _ __ _ __ ___| |_
-       | |    / _` | '__| '__/ _ \\ __|
-       | |___| (_| | |  | | | (_) | |_
-        \\____|\\__,_|_|  |_|  \\___/ \\__|
-       """;
+              ____                     _
+             / ___| __ _ _ __ _ __ ___| |_
+            | |    / _` | '__| '__/ _ \\ __|
+            | |___| (_| | |  | | | (_) | |_
+             \\____|\\__,_|_|  |_|  \\___/ \\__|
+            """;
         System.out.println(logo);
         System.out.println("Hello! I'm C4RR0T\nWhat can I do for you?");
         printLine();

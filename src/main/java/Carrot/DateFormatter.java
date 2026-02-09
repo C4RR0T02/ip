@@ -1,12 +1,16 @@
-package Carrot;
+package carrot;
 
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
+/**
+ * DateFormatter class to handle date and time formatting and parsing
+ */
 public class DateFormatter {
 
-    /** DateTimeFormatter to parse date and time in "yyyy-MM-dd HH:mm" format
+    /**
+     * DateTimeFormatter to parse date and time in "yyyy-MM-dd HH:mm" format
      * Time part is optional; if not provided, defaults to 00:00
      */
     public static final DateTimeFormatter FORMATTER = new DateTimeFormatterBuilder()
@@ -19,7 +23,8 @@ public class DateFormatter {
             .toFormatter();
 
 
-    /** DateTimeFormatter to output date and time in "dd-MM-yyyy HH:mm" format
+    /**
+     * DateTimeFormatter to output date and time in "dd-MM-yyyy HH:mm" format
      * Time part is optional; if not provided, defaults to 00:00
      */
     public static final DateTimeFormatter OUTPUT = new DateTimeFormatterBuilder()

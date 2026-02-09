@@ -1,5 +1,9 @@
-package Carrot.Task;
+package carrot.task;
 
+/**
+ * Represents a todo task.
+ * Extends the Task class to add todo-specific functionality.
+ */
 public class Todo extends Task {
 
     /**
@@ -12,7 +16,7 @@ public class Todo extends Task {
 
     @Override
     public String getAddPrint() {
-        return  "New Todo Alert: " + this.taskName;
+        return "New Todo Alert: " + this.taskName;
     }
 
     @Override

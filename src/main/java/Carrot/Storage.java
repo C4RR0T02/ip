@@ -1,9 +1,4 @@
-package Carrot;
-
-import Carrot.Task.Deadline;
-import Carrot.Task.Event;
-import Carrot.Task.Task;
-import Carrot.Task.Todo;
+package carrot;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -13,6 +8,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import carrot.task.Deadline;
+import carrot.task.Event;
+import carrot.task.Task;
+import carrot.task.Todo;
+
+/**
+ * Handles loading and saving of tasks to a file
+ */
 public class Storage {
 
     private final String filePath;
@@ -58,7 +61,8 @@ public class Storage {
         }
     }
 
-    /** Writes the task list to the file
+    /**
+     * Writes the task list to the file
      * @param taskList List of tasks to be written
      */
     private void write(ArrayList<Task> taskList) {
@@ -66,12 +70,13 @@ public class Storage {
             for (Task t : taskList) {
                 fileWriter.write(t.saveToString() + "\n");
             }
-        } catch(IOException e){
-                System.out.println("An error occurred.");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
     }
 
-    /** Reads the task list from the file
+    /**
+     * Reads the task list from the file
      * @param taskList List of tasks to be populated
      * @throws CarrotException if there is an error reading the file
      */
@@ -97,6 +102,8 @@ public class Storage {
                     checkAndSetTaskStatus(newDeadline, isComplete);
                     taskList.add(newDeadline);
                     break;
+                default:
+                    throw new CarrotException("Corrupted data file");
                 }
             }
         } catch (IOException e) {
@@ -104,7 +111,8 @@ public class Storage {
         }
     }
 
-    /** Checks and sets the task status based on the saved data
+    /**
+     * Checks and sets the task status based on the saved data
      * @param task Task to be updated
      * @param taskStatus Status of the task in string format
      */

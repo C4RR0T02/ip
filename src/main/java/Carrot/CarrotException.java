@@ -1,5 +1,8 @@
-package Carrot;
+package carrot;
 
+/**
+ * Custom exception class for Carrot application
+ */
 public class CarrotException extends Exception {
 
     /**

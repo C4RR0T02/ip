@@ -1,14 +1,17 @@
-package Carrot;
+package carrot;
 
 import java.util.Scanner;
 
+/**
+ * Main class for the Carrot application
+ */
 public class Carrot {
 
+    private static final String DEFAULT_FILEPATH = "data/carrot.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
     private final Ui ui;
-    public static final String DEFAULT_FILEPATH = "data/carrot.txt";
 
     /**
      * Constructor for Carrot class

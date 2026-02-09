@@ -1,9 +1,12 @@
-package Carrot;
-
-import Carrot.Task.Task;
+package carrot;
 
 import java.util.ArrayList;
 
+import carrot.task.Task;
+
+/**
+ * Manages a list of tasks, including adding, deleting, loading, and finding tasks.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;

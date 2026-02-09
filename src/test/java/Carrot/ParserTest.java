@@ -1,23 +1,27 @@
-package Carrot;
-
-import Carrot.Task.Deadline;
-import Carrot.Task.Task;
-import Carrot.Task.Todo;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.nio.file.Path;
+package carrot;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.nio.file.Path;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+import carrot.task.Deadline;
+import carrot.task.Task;
+import carrot.task.Todo;
+
 class ParserTest {
+
+    @TempDir
+    Path tempDir;
 
     private Parser parser;
     private TaskList taskList;
@@ -25,9 +29,6 @@ class ParserTest {
     private Storage storage;
     private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
-
-    @TempDir
-    Path tempDir;
 
     @BeforeEach
     void setUp() {

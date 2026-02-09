@@ -48,8 +48,8 @@ for %%f in (tests\test_*.txt) do (
     ) else (
         echo Running test: %%f...
 
-        REM C. Run Java (Carrot) with Error Capture
-        java -classpath ..\bin Carrot < merged_input.tmp > ACTUAL.TXT 2>&1
+        REM C. Run Java (carrot) with Error Capture
+        java -classpath ..\bin carrot < merged_input.tmp > ACTUAL.TXT 2>&1
 
         REM D. Compare Output
         FC ACTUAL.TXT "!expected_file!" > nul

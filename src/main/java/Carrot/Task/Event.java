@@ -1,9 +1,13 @@
-package Carrot.Task;
-
-import Carrot.DateFormatter;
+package carrot.task;
 
 import java.time.LocalDateTime;
 
+import carrot.DateFormatter;
+
+/**
+ * Represents an event task with a specific start date and time to a specific end date and time.
+ * Extends the Task class to add event-specific functionality.
+ */
 public class Event extends Task {
 
     private final LocalDateTime startDate;
@@ -23,16 +27,33 @@ public class Event extends Task {
 
     @Override
     public String getAddPrint() {
-        return "New Event Alert: " + this.taskName + " occurring from " + this.startDate.format(DateFormatter.OUTPUT) + " to " + this.endDate.format(DateFormatter.OUTPUT);
+        return "New Event Alert: "
+                + this.taskName
+                + " occurring from "
+                + this.startDate.format(DateFormatter.OUTPUT)
+                + " to "
+                + this.endDate.format(DateFormatter.OUTPUT);
     }
 
     @Override
     public String saveToString() {
-        return "E|" + (this.isComplete ? "1" : "0") + "|" + this.taskName + "|" + this.startDate.format(DateFormatter.FORMATTER) + "|" + this.endDate.format(DateFormatter.FORMATTER);
+        return "E|"
+                + (this.isComplete ? "1" : "0")
+                + "|"
+                + this.taskName
+                + "|"
+                + this.startDate.format(DateFormatter.FORMATTER)
+                + "|"
+                + this.endDate.format(DateFormatter.FORMATTER);
     }
 
     @Override
     public String toString() {
-        return "[E] " + super.toString() + " (from: " + this.startDate.format(DateFormatter.OUTPUT) + " to: " + this.endDate.format(DateFormatter.OUTPUT) + ")";
+        return "[E] "
+                + super.toString()
+                + " (from: "
+                + this.startDate.format(DateFormatter.OUTPUT)
+                + " to: "
+                + this.endDate.format(DateFormatter.OUTPUT) + ")";
     }
 }
