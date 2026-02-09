@@ -2,6 +2,11 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'checkstyle'
+}
+
+checkstyle {
+    toolVersion = '11.0.0'
 }
 
 repositories {
@@ -28,11 +33,11 @@ test {
 }
 
 application {
-    mainClass.set("Carrot.Carrot")
+    mainClass.set("carrot.Carrot")
 }
 
 shadowJar {
-    archiveBaseName = "Carrot"
+    archiveBaseName = "carrot"
     archiveClassifier = null
 }
 
