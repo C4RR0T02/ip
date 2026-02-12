@@ -34,8 +34,7 @@ class UiTest {
 
     @Test
     void testShowWelcome_printsCorrectMessages() {
-        ui.showWelcome();
-        String output = outputStreamCaptor.toString();
+        String output = ui.showWelcome();
         assertTrue(output.contains("Hello! I'm C4RR0T"));
         assertTrue(output.contains("What can I do for you?"));
     }
@@ -43,30 +42,29 @@ class UiTest {
     @Test
     void testPrintTaskList_emptyList_printsEmpty() {
         ArrayList<Task> emptyList = new ArrayList<>();
-        ui.printTaskList(emptyList);
-        assertEquals("Empty Results ʕ•́ᴥ•̀ʔっ", outputStreamCaptor.toString().trim());
+        String output = ui.printTaskList(emptyList);
+        assertEquals("Empty Results ʕ•́ᴥ•̀ʔっ", output.trim());
     }
 
     @Test
     void testPrintTaskList_populatedList_printsTasks() {
         ArrayList<Task> list = new ArrayList<>();
         list.add(new Todo("Buy Milk"));
-        ui.printTaskList(list);
-        String output = outputStreamCaptor.toString();
+        String output = ui.printTaskList(list);
         assertTrue(output.contains("1 [T] [ ] Buy Milk"));
     }
 
     @Test
     void testExit_setsIsExitToTrue() {
         assertFalse(ui.isExit());
-        ui.exit();
+        String output = ui.exit();
         assertTrue(ui.isExit());
-        assertTrue(outputStreamCaptor.toString().contains("Bye. Hope to see you again soon!"));
+        assertTrue(output.contains("Bye. Hope to see you again soon!"));
     }
 
     @Test
     void testShowLoadingError_printsErrorMessage() {
-        ui.showLoadingError();
-        assertTrue(outputStreamCaptor.toString().contains("Failed to load task list"));
+        String output = ui.showLoadingError();
+        assertTrue(output.contains("Failed to load task list"));
     }
 }

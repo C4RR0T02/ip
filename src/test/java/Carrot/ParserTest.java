@@ -47,7 +47,7 @@ class ParserTest {
 
     @Test
     void addTodo_validArgs_addsTask() throws CarrotException {
-        parser.addTodo(ui, "Read Book", taskList, storage);
+        Response response = parser.addTodo(ui, "Read Book", taskList, storage);
         assertEquals(1, taskList.getTasks().size());
         assertInstanceOf(Todo.class, taskList.getTasks().get(0));
         assertEquals("Read Book", taskList.getTasks().get(0).toString().contains("Read Book") ? "Read Book" : "");
@@ -60,7 +60,7 @@ class ParserTest {
 
     @Test
     void addDeadline_validArgs_parsesCorrectly() throws CarrotException {
-        parser.addDeadline(ui, "Submit Report /by 2026-02-08 23:59", taskList, storage);
+        Response response = parser.addDeadline(ui, "Submit Report /by 2026-02-08 23:59", taskList, storage);
         Task task = taskList.getTasks().get(0);
         assertInstanceOf(Deadline.class, task);
         assertTrue(task.toString().contains("Submit Report"));
@@ -77,7 +77,7 @@ class ParserTest {
     @Test
     void mark_validIndex_updatesTask() throws CarrotException {
         taskList.addTask(new Todo("Initial Task"));
-        parser.mark(ui, taskList.getTasks(), "1", storage);
+        Response response = parser.mark(ui, taskList.getTasks(), "1", storage);
         assertTrue(taskList.getTasks().get(0).toString().contains("[X]"));
     }
 
@@ -90,8 +90,8 @@ class ParserTest {
     void findTask_validKeyword_printsMatchingTasks() throws CarrotException {
         taskList.addTask(new Todo("Buy fresh carrots"));
         taskList.addTask(new Todo("Eat healthy cake"));
-        parser.findTask(ui, "carrot", taskList);
-        String output = outputStreamCaptor.toString();
+        Response response = parser.findTask(ui, "carrot", taskList);
+        String output = response.getMessage();
         assertTrue(output.contains("Buy fresh carrots"));
     }
 
@@ -103,8 +103,8 @@ class ParserTest {
     @Test
     void findTask_noMatches_printsEmptyMessage() throws CarrotException {
         taskList.addTask(new Todo("Buy milk"));
-        parser.findTask(ui, "carrot", taskList);
-        String output = outputStreamCaptor.toString().trim();
+        Response response = parser.findTask(ui, "carrot", taskList);
+        String output = response.getMessage().trim();
         assert(output.contains("Empty Results ʕ•́ᴥ•̀ʔっ"));
     }
 }
