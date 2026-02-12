@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Carrot {
 
-    private static final String DEFAULT_FILEPATH = "data/carrot.txt";
+    public static final String DEFAULT_FILEPATH = "data/carrot.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
@@ -17,7 +17,7 @@ public class Carrot {
      * Constructor for Carrot class
      * @param filePath Path to the file where tasks are stored
      */
-    private Carrot(String filePath) {
+    public Carrot(String filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
         if (!filePath.isEmpty()) {
@@ -34,6 +34,38 @@ public class Carrot {
     }
 
     /**
+     * Gets the TaskList object
+     * @return TaskList object
+     */
+    public TaskList getTaskList() {
+        return this.taskList;
+    }
+
+    /**
+     * Gets the Ui object
+     * @return Ui object
+     */
+    public Ui getUi() {
+        return this.ui;
+    }
+
+    /**
+     * Gets the Parser object
+     * @return Parser object
+     */
+    public Parser getParser() {
+        return this.parser;
+    }
+
+    /**
+     * Gets the Storage object
+     * @return Storage object
+     */
+    public Storage getStorage() {
+        return this.storage;
+    }
+
+    /**
      * Main method to run the Carrot application
      * @param args Command line arguments
      */
@@ -44,7 +76,7 @@ public class Carrot {
         carrot.ui.showWelcome();
         try {
             while (!carrot.ui.isExit()) {
-                carrot.parser.command(carrot.ui, input, carrot.taskList, carrot.storage);
+                carrot.parser.command(carrot.ui, input.toString(), carrot.taskList, carrot.storage);
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

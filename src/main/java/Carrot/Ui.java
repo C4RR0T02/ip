@@ -9,9 +9,7 @@ import carrot.task.Task;
  */
 public class Ui {
 
-    private static final String SEPARATOR = "-".repeat(80);
-    private static final int SEPARATOR_LENGTH = SEPARATOR.length();
-    private boolean isExit;
+    protected boolean isExit;
 
     /**
      * Constructor for Ui class
@@ -21,33 +19,19 @@ public class Ui {
     }
 
     /**
-     * Prints a separator line
+     * Shows the welcome message
+     * @return String representation of the welcome message
      */
-    public void printLine() {
-        System.out.println(SEPARATOR);
+    public String showWelcome() {
+        return "Hello! I'm C4RR0T" + System.lineSeparator() + "What can I do for you?";
     }
 
     /**
-     * Displays the welcome message with logo
+     * Shows the help message
+     * @return String representation of the help message
      */
-    public void showWelcome() {
-        String logo = """
-              ____                     _
-             / ___| __ _ _ __ _ __ ___| |_
-            | |    / _` | '__| '__/ _ \\ __|
-            | |___| (_| | |  | | | (_) | |_
-             \\____|\\__,_|_|  |_|  \\___/ \\__|
-            """;
-        System.out.println(logo);
-        System.out.println("Hello! I'm C4RR0T\nWhat can I do for you?");
-        printLine();
-    }
-
-    /**
-     * Prints the help message with available commands
-     */
-    public void printHelp() {
-        System.out.println("""
+    public String printHelp() {
+        return ("""
                 HELPPP is hereeee
                 What do you need help with
                 - Add a todo task: todo <task name>
@@ -57,76 +41,83 @@ public class Ui {
                 - List Tasks: list
                 - Mark Task Completed: mark <task index>
                 - Mark Task Incompleted: unmark <task index>
-                - Exit the program: bye""");
-        printLine();
+                - Find Tasks: find <keyword>
+                - Print Help: help
+                - Exit the program: bye"""
+                + System.lineSeparator());
     }
 
     /**
-     * Prints the message when a task is added
+     * Shows the added task message
      * @param task Task that was added
+     * @return String representation of the added task message
      */
-    public void printAddTask(Task task) {
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", task.getAddPrint());
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", task);
+    public String printAddTask(Task task) {
+        return task.getAddPrint() + System.lineSeparator() + task;
     }
 
     /**
-     * Prints the message when a task is deleted
+     * Shows the deleted task message
      * @param task Task that was deleted
+     * @return String representation of the deleted task message
      */
-    public void printDeleteTask(Task task) {
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Removed the task: " + task);
+    public String printDeleteTask(Task task) {
+        return "Removed the task: " + task;
     }
 
     /**
-     * Prints the list of tasks
-     * @param list List of tasks to be printed
+     * Shows the list of tasks
+     * @param list ArrayList of tasks to be printed
+     * @return String representation of the list of tasks
      */
-    public void printTaskList(ArrayList<Task> list) {
+    public String printTaskList(ArrayList<Task> list) {
         if (list.isEmpty()) {
-            System.out.println("Empty Results ʕ•́ᴥ•̀ʔっ");
-            return;
+            return "Empty Results ʕ•́ᴥ•̀ʔっ";
         }
+        String string = "";
         for (int index = 1; index < (list.size() + 1); index++) {
-            System.out.println("\t\t\t" + index + " " + list.get(index - 1));
+            string = string + index + " " + list.get(index - 1) + System.lineSeparator();
         }
+        return string;
     }
 
     /**
-     * Prints the message when commands are invalid
+     * Shows invalid command message
+     * @return String representation of the invalid command message
      */
-    public void showInvalidCommands() {
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "hmmmmm, I can't seem to find a command for that");
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Try screaming \"help\" for the full list of commands");
-        printLine();
+    public String showInvalidCommands() {
+        return "hmmmmm, I can't seem to find a command for that"
+                + System.lineSeparator()
+                + "Try screaming \"help\" for the full list of commands";
     }
 
     /**
-     * Prints the message when there is an error loading the task list
+     * Shows loading error message
+     * @return String representation of the loading error message
      */
-    public void showLoadingError() {
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Failed to load task list from saved file");
+    public String showLoadingError() {
+        return "Failed to load task list from saved file";
     }
 
     /**
-     * Prints the exit message and sets the exit flag to true
+     * Shows the exit message
+     * @return String representation of the exit message
      */
-    public void exit() {
+    public String exit() {
         isExit = true;
-        System.out.printf("%" + SEPARATOR_LENGTH + "s%n", "Bye. Hope to see you again soon!");
-        printLine();
+        return "Bye. Hope to see you again soon!" + System.lineSeparator();
     }
 
     /**
-     * Toggles the exit flag
+     * Toggles the exit status
      */
     public void setExit() {
         this.isExit = !this.isExit;
     }
 
     /**
-     * Checks if the exit flag is set
-     * @return true if exit flag is set, false otherwise
+     * Gets the exit status
+     * @return boolean indicating if the program is set to exit
      */
     public boolean isExit() {
         return this.isExit;
