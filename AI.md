@@ -4,3 +4,13 @@
 
 ## A-TextUiTesting: Automated Text UI Testing
 - Splitting the various tests into multiple files to test a specific feature in each file along with the edge cases
+
+## A-JUnit: Automated JUnit Testing
+- Creating JUnit test cases for all the methods in the project to ensure code reliability and correctness
+
+## A-JavaDocs: Automated Java Documentation
+- Generating JavaDocs for all the classes and methods in the project
+
+## Level-10: GUI
+- Generating the CSS file for the GUI
+- Modifying the FXML layout for the GUI
