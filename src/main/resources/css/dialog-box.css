@@ -1,0 +1,36 @@
+.label {
+    -fx-font-family: "Consolas";
+    -fx-max-height: Infinity;
+    -fx-pref-height: -1;
+    -fx-wrap-text: true;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+}
+
+/* Style for user messages */
+.user-label {
+    -fx-text-fill: #b3d9ff;
+    -fx-background-color: #1a2633;
+    -fx-border-color: #87ceeb;
+    -fx-border-width: 2;
+}
+
+/* Style for bot messages */
+.bot-label {
+    -fx-text-fill: #b3ffb3;
+    -fx-background-color: #1a2b1a;
+    -fx-border-color: #90ee90;
+    -fx-border-width: 2;
+}
+
+/* Style for error messages */
+.error-label {
+    -fx-text-fill: #ff9999;
+    -fx-font-weight: bold;
+    -fx-background-color: #331a1a;
+    -fx-border-color: #ff6b6b;
+    -fx-border-width: 2;
+}

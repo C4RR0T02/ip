@@ -1,0 +1,54 @@
+/* Main window black background theme */
+.root {
+    -fx-background-color: #000000;
+}
+
+.scroll-pane {
+    -fx-background-color: #000000;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: #000000;
+}
+
+.scroll-pane .content {
+    -fx-background-color: #000000;
+}
+
+/* Text field styling */
+.text-field {
+    -fx-background-color: #1a1a1a;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: #666666;
+    -fx-border-color: #333333;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.text-field:focused {
+    -fx-border-color: #4a4a4a;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+/* Button styling */
+.button {
+    -fx-background-color: #2a2a2a;
+    -fx-text-fill: white;
+    -fx-border-color: #333333;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+.button:pressed {
+    -fx-background-color: #1a1a1a;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
