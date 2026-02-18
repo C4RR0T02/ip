@@ -25,6 +25,7 @@ public class Storage {
      * @param filePath Path to the file where tasks are stored
      */
     public Storage(String filePath) {
+        assert filePath != null : "filePath must not be null";
         this.filePath = filePath;
     }
 
@@ -47,6 +48,7 @@ public class Storage {
      * @param taskList List of tasks to be saved
      */
     public void save(ArrayList<Task> taskList) {
+        assert taskList != null : "taskList must not be null";
         File file = new File(this.filePath);
         try {
             if (file.getParentFile() != null) {
@@ -66,8 +68,10 @@ public class Storage {
      * @param taskList List of tasks to be written
      */
     private void write(ArrayList<Task> taskList) {
+        assert taskList != null : "taskList must not be null";
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             for (Task t : taskList) {
+                assert t != null : "task in taskList should not be null";
                 fileWriter.write(t.saveToString() + "\n");
             }
         } catch (IOException e) {
@@ -81,13 +85,16 @@ public class Storage {
      * @throws CarrotException if there is an error reading the file
      */
     private void read(ArrayList<Task> taskList) throws CarrotException {
+        assert taskList != null : "taskList must not be null";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath))) {
             String data;
             while ((data = bufferedReader.readLine()) != null) {
                 String[] dataBlocks = data.split("\\|");
+                assert dataBlocks.length >= 3 : "data blocks should have at least 3 elements";
                 String isComplete = dataBlocks[1];
                 switch (dataBlocks[0]) {
                 case "E":
+                    assert dataBlocks.length >= 5 : "event data should have at least 5 blocks";
                     Task newEvent = new Event(dataBlocks[2], dataBlocks[3], dataBlocks[4]);
                     checkAndSetTaskStatus(newEvent, isComplete);
                     taskList.add(newEvent);
@@ -98,6 +105,7 @@ public class Storage {
                     taskList.add(newTask);
                     break;
                 case "D":
+                    assert dataBlocks.length >= 4 : "deadline data should have at least 4 blocks";
                     Task newDeadline = new Deadline(dataBlocks[2], dataBlocks[3]);
                     checkAndSetTaskStatus(newDeadline, isComplete);
                     taskList.add(newDeadline);
@@ -117,6 +125,8 @@ public class Storage {
      * @param taskStatus Status of the task in string format
      */
     private void checkAndSetTaskStatus(Task task, String taskStatus) {
+        assert task != null : "task must not be null";
+        assert taskStatus != null : "taskStatus must not be null";
         if (Objects.equals(taskStatus, "1")) {
             task.markCompleted();
         } else {

@@ -17,6 +17,7 @@ public class TaskList {
      * @param storage Storage object for saving and loading tasks
      */
     public TaskList(Storage storage) {
+        assert storage != null : "storage must not be null";
         this.storage = storage;
         this.tasks = new ArrayList<>();
     }
@@ -26,6 +27,7 @@ public class TaskList {
      * @return ArrayList of tasks
      */
     public ArrayList<Task> getTasks() {
+        assert this.tasks != null : "tasks should not be null";
         return this.tasks;
     }
 
@@ -34,6 +36,7 @@ public class TaskList {
      * @param newTask Task to be added
      */
     public void addTask(Task newTask) {
+        assert newTask != null : "newTask must not be null";
         this.tasks.add(newTask);
         storage.save(this.tasks);
     }
@@ -44,7 +47,9 @@ public class TaskList {
      * @return The removed Task
      */
     public Task deleteTask(int index) {
+        assert index >= 0 && index < this.tasks.size() : "index must be within bounds of task list";
         Task removable = this.tasks.get(index);
+        assert removable != null : "task at index should not be null";
         this.tasks.remove(removable);
         storage.save(this.tasks);
         return removable;
@@ -56,6 +61,7 @@ public class TaskList {
      */
     public void loadTaskList() throws CarrotException {
         this.tasks = storage.load();
+        assert this.tasks != null : "tasks should be properly loaded from storage";
     }
 
     /**
@@ -65,7 +71,11 @@ public class TaskList {
      * @param arrayList The array list to store found tasks.
      */
     public void findTasks(String keyword, ArrayList<Task> arrayList) {
+        assert keyword != null : "keyword must not be null";
+        assert arrayList != null : "arrayList must not be null";
+        assert this.tasks != null : "tasks should be initialized";
         for (Task task : this.getTasks()) {
+            assert task != null : "task in tasks list should not be null";
             if (task.getTaskName().contains(keyword)) {
                 arrayList.add(task);
             }

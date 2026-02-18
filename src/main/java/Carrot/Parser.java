@@ -21,12 +21,13 @@ public class Parser {
      * @param storage   The storage handler used to persist task data after modification.
      */
     public Response command(Ui ui, String input, TaskList taskList, Storage storage) {
+        assert taskList != null : "TaskList should not be null when processing commands";
+        assert storage != null : "Storage should not be null when processing commands";
         try {
             String[] split = input.split(" ", 2);
             String rootCmd = split[0];
             String args = (split.length > 1) ? split[1] : "";
             ArrayList<Task> tasks = taskList.getTasks();
-
             switch (rootCmd) {
             case "bye":
                 ui.setExit();
@@ -72,6 +73,8 @@ public class Parser {
     public Response mark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.size();
         int index = getIndex("mark", args, taskListSize);
+        assert index >= 0 && index < taskListSize : "Index should be within the bounds of the task list";
+        assert taskList.get(index) != null : "Task at index should not be null";
         taskList.get(index).markCompleted();
         storage.save(taskList);
         String message = ui.printTaskList(taskList) + System.lineSeparator();
@@ -91,6 +94,7 @@ public class Parser {
     public Response unmark(Ui ui, ArrayList<Task> taskList, String args, Storage storage) throws CarrotException {
         int taskListSize = taskList.size();
         int index = getIndex("unmark", args, taskListSize);
+        assert taskList.get(index) != null : "Task at index should not be null";
         taskList.get(index).markIncomplete();
         storage.save(taskList);
         String message = ui.printTaskList(taskList) + System.lineSeparator();
@@ -107,9 +111,12 @@ public class Parser {
      * @throws CarrotException If the input is invalid or out of range.
      */
     private static int getIndex(String command, String args, int taskListSize) throws CarrotException {
+        assert args != null : "Arguments should not be null";
+        assert command != null : "Command should not be null";
+        assert taskListSize >= 0 : "Task list size should be non-negative";
         try {
             int index = Integer.parseInt(args) - 1;
-            if (taskListSize < index) {
+            if (taskListSize <= index) {
                 throw new CarrotException("Number out of Range");
             }
             if (index < 0) {
@@ -146,12 +153,7 @@ public class Parser {
                     + "Use /from for start date and /to for end date.");
         }
         try {
-            String[] taskSplit = args.split("/from ", 2);
-            String eventName = taskSplit[0].trim();
-            String[] timeFrame = taskSplit[1].split("/to ", 2);
-            String from = timeFrame[0].trim();
-            String to = timeFrame[1].trim();
-            Task newTask = new Event(eventName, from, to);
+            Task newTask = getNewEvent(args);
             taskList.addTask(newTask);
             storage.save(taskList.getTasks());
             return new Response("EVENT", ui.printAddTask(newTask));
@@ -159,6 +161,24 @@ public class Parser {
             throw new CarrotException("Error: Formatting incorrect. "
                     + "Please type 'event [task] /from [start] /to [end date]'");
         }
+    }
+
+    /**
+     * Parses the user input to create a new Event task.
+     *
+     * @param args The raw arguments string containing the event details.
+     * @return A new Event task created from the parsed details.
+     */
+    private static Task getNewEvent(String args) {
+        String[] taskSplit = args.split("/from ", 2);
+        assert taskSplit.length == 2 : "Event details should contain both name and time frame";
+        String eventName = taskSplit[0].trim();
+        assert !eventName.isEmpty() : "Event name should not be empty";
+        String[] timeFrame = taskSplit[1].split("/to ", 2);
+        assert timeFrame.length == 2 : "Time frame should contain both start and end times";
+        String from = timeFrame[0].trim();
+        String to = timeFrame[1].trim();
+        return new Event(eventName, from, to);
     }
 
     /**
@@ -173,23 +193,40 @@ public class Parser {
      */
     public Response addDeadline(Ui ui, String args, TaskList taskList, Storage storage) throws CarrotException {
         if (args == null || args.trim().isEmpty()) {
-            throw new CarrotException("Error: Deadline details are missing. Usage: 'deadline [task] /by [date]'");
+            throw new CarrotException("Error: Deadline details are missing."
+                    + "Please type 'deadline [task name] /by [date]'");
         }
         if (!args.contains("/by")) {
             throw new CarrotException("Error: Missing deadline date. Please use '/by' to specify the due date.");
         }
         try {
-            String[] taskSplit = args.split("/by ", 2);
-            String eventName = taskSplit[0].trim();
-            String deadline = taskSplit[1].trim();
-            Task newTask = new Deadline(eventName, deadline);
+            Task newTask = getNewDeadline(args);
             taskList.addTask(newTask);
             storage.save(taskList.getTasks());
             return new Response("DEADLINE", ui.printAddTask(newTask));
         } catch (IndexOutOfBoundsException e) {
-            String message = "Error: Too many or too few arguments. Please type 'deadline [task] /by [due date]'";
+            String message = "Error: Too many or too few arguments. Please type 'deadline [task name] /by [due date]'";
             throw new CarrotException(message);
         }
+    }
+
+    /**
+     * Parses the user input to create a new Deadline task.
+     *
+     * @param args The raw arguments string containing the deadline details.
+     * @return A new Deadline task created from the parsed details.
+     * @throws CarrotException If the input format is incorrect or if required details are missing.
+     */
+    private static Task getNewDeadline(String args) throws CarrotException {
+        String[] taskSplit = args.split("/by ", 2);
+        assert taskSplit.length == 2 : "Deadline details should contain both task name and deadline date";
+        String eventName = taskSplit[0].trim();
+        if (eventName.isEmpty()) {
+            throw new CarrotException("Error: The description of a deadline cannot be empty. "
+                    + "Please type 'deadline [task name] /by [due date]'");
+        }
+        String deadline = taskSplit[1].trim();
+        return new Deadline(eventName, deadline);
     }
 
     /**

@@ -35,6 +35,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
+        assert dialog != null : "Dialog label must be loaded from FXML";
+        assert displayPicture != null : "Display picture must be loaded from FXML";
+        assert text != null : "Text must not be null";
+        assert img != null : "Image must not be null";
+
         dialog.setText(text);
         displayPicture.setImage(img);
         if (text.toLowerCase().contains("error") || text.toLowerCase().contains("failed")

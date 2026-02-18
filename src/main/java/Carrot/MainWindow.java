@@ -28,16 +28,28 @@ public class MainWindow extends AnchorPane {
     private Button sendButton;
     private Carrot carrot;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Pizza.png"));
-    private Image carrotImage = new Image(this.getClass().getResourceAsStream("/images/Carrot.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/Pizza.png"));
+    private final Image carrotImage = new Image(this.getClass().getResourceAsStream("/images/Carrot.png"));
 
+    /**
+     * Initializes the UI components and binds the scroll pane to the dialog container.
+     */
     @FXML
     public void initialize() {
+        assert scrollPane != null : "scrollPane must be loaded from FXML";
+        assert dialogContainer != null : "dialogContainer must be loaded from FXML";
+        assert userInput != null : "userInput must be loaded from FXML";
+        assert sendButton != null : "sendButton must be loaded from FXML";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    /** Injects the Carrot instance */
+    /**
+     * Injects the Carrot instance
+     */
     public void setCarrot(Carrot carrot) {
+        assert carrot != null : "carrot must not be null";
+        assert userImage != null : "userImage must be loaded";
+        assert carrotImage != null : "carrotImage must be loaded";
         this.carrot = carrot;
 
         try {
@@ -58,21 +70,29 @@ public class MainWindow extends AnchorPane {
     }
 
 
+    /**
+     * Handles user input, generates a response from Carrot, and updates the dialog container.
+     * If the command is BYE, it exits the application after a short delay.
+     */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        assert input != null : "input must not be null";
 
         if (input.trim().isEmpty()) {
             userInput.clear();
             return;
         }
 
+        assert carrot != null : "carrot must be initialized";
         Response response = carrot.getParser()
                 .command(carrot.getUi(),
                 input,
                 carrot.getTaskList(),
                 carrot.getStorage());
 
+        assert response != null : "response must not be null";
+        assert dialogContainer != null : "dialogContainer must be initialized";
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getCarrotDialog(response.getMessage(), carrotImage)
