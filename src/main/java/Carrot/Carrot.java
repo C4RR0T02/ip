@@ -66,7 +66,7 @@ public class Carrot {
     }
 
     /**
-     * Main method to run the Carrot application
+     * Main method to create a Carrot object and start the command loop
      * @param args Command line arguments
      */
     public static void main(String[] args) {

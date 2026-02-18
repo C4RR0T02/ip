@@ -19,6 +19,8 @@ public class Response {
      * @param message The message of the response
      */
     public Response(String commandType, String message) {
+        assert commandType != null : "commandType must not be null";
+        assert message != null : "message must not be null";
         this.message = message;
         this.commandType = CommandType.valueOf(commandType);
     }
@@ -28,6 +30,7 @@ public class Response {
      * @return The message of the response
      */
     public String getMessage() {
+        assert this.message != null : "message should not be null";
         return this.message;
     }
 
@@ -36,11 +39,14 @@ public class Response {
      * @return The command type of the response
      */
     public CommandType getCommandType() {
+        assert this.commandType != null : "commandType should not be null";
         return this.commandType;
     }
 
     @Override
     public String toString() {
+        assert this.commandType != null : "commandType should not be null";
+        assert this.message != null : "message should not be null";
         return this.commandType + this.message;
     }
 }

@@ -15,10 +15,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Carrot carrot = new Carrot(DEFAULT_FILEPATH);
+    private final Carrot carrot = new Carrot(DEFAULT_FILEPATH);
 
     @Override
     public void start(Stage stage) {
+        assert stage != null : "Stage should not be null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
