@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Carrot {
 
-    public static final String DEFAULT_FILEPATH = "data/carrot.txt";
+    public static final String DEFAULT_FILEPATH = "data/taskList.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
@@ -20,12 +20,10 @@ public class Carrot {
     public Carrot(String filePath) {
         this.ui = new Ui();
         this.parser = new Parser();
-        if (!filePath.isEmpty()) {
-            this.storage = new Storage(filePath);
-        } else {
-            this.storage = new Storage(DEFAULT_FILEPATH);
-        }
+        String effectiveFilePath = (!filePath.isEmpty()) ? filePath : DEFAULT_FILEPATH;
+        this.storage = new Storage(effectiveFilePath);
         this.taskList = new TaskList(storage);
+
         try {
             taskList.loadTaskList();
         } catch (CarrotException e) {
@@ -66,22 +64,42 @@ public class Carrot {
     }
 
     /**
+     * Initializes the Carrot application with Scanner and displays welcome message
+     * @param scanner The scanner for reading user input
+     */
+    private void initialize(Scanner scanner) {
+        assert scanner != null : "scanner must not be null";
+        ui.showWelcome();
+        startCommandLoop(scanner);
+    }
+
+    /**
+     * Starts the main command loop for processing user input
+     * @param scanner The scanner for reading user input
+     */
+    private void startCommandLoop(Scanner scanner) {
+        assert scanner != null : "scanner must not be null";
+        try {
+            while (!ui.isExit()) {
+                String userInput = scanner.nextLine();
+                parser.command(ui, userInput, taskList, storage);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            ui.exit();
+        }
+    }
+
+    /**
      * Main method to create a Carrot object and start the command loop
      * @param args Command line arguments
      */
     public static void main(String[] args) {
         String path = (args.length > 0) ? args[0] : "";
         Carrot carrot = new Carrot(path);
-        Scanner input = new Scanner(System.in);
-        carrot.ui.showWelcome();
-        try {
-            while (!carrot.ui.isExit()) {
-                carrot.parser.command(carrot.ui, input.toString(), carrot.taskList, carrot.storage);
-            }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        } finally {
-            carrot.ui.exit();
+        try (Scanner input = new Scanner(System.in)) {
+            carrot.initialize(input);
         }
     }
 }

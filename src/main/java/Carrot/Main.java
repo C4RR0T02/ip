@@ -23,18 +23,21 @@ public class Main extends Application {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
+            assert ap != null : "Root AnchorPane should be loaded from FXML";
+
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("Carrot Chatbot");
-
             stage.setMinHeight(400);
             stage.setMinWidth(500);
 
-            fxmlLoader.<MainWindow>getController().setCarrot(carrot);
+            MainWindow controller = fxmlLoader.getController();
+            assert controller != null : "MainWindow controller should be loaded";
+            controller.setCarrot(carrot);
 
             stage.show();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Failed to load FXML: " + e.getMessage());
         }
     }
 

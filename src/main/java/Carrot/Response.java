@@ -8,7 +8,7 @@ public class Response {
     /**
      * Enum representing the type of command associated with the response.
      */
-    public enum CommandType { HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, INVALID }
+    public enum CommandType { HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, INVALID, ERROR }
 
     private final String message;
     private final CommandType commandType;
@@ -16,7 +16,7 @@ public class Response {
     /**
      * Constructor for Response class
      * @param commandType The type of command associated with the response
-     * @param message The message of the response
+     * @param message     The message of the response
      */
     public Response(String commandType, String message) {
         assert commandType != null : "commandType must not be null";
