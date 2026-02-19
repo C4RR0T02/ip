@@ -14,3 +14,7 @@
 ## Level-10: GUI
 - Generating the CSS file for the GUI
 - Modifying the FXML layout for the GUI
+
+## A-CI: Continuous Integration
+- Setting up CI pipelines to automate the build and testing process for the project
+- Automate the release of application
