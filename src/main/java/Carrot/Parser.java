@@ -13,51 +13,104 @@ import carrot.task.Todo;
 public class Parser {
 
     /**
+     * Parses the command string into a CommandType enum.
+     *
+     * @param commandStr The user input command string.
+     * @param ui         The UI handler for displaying invalid command messages.
+     * @return The parsed CommandType, or null if the command is invalid.
+     */
+    private Response tryParseCommand(String commandStr, Ui ui) {
+        assert commandStr != null : "commandStr must not be null";
+        assert ui != null : "ui must not be null";
+        try {
+            Response.CommandType.valueOf(commandStr);
+            return null; // Successfully parsed
+        } catch (IllegalArgumentException e) {
+            return new Response("INVALID", ui.showInvalidCommands());
+        }
+    }
+
+    /**
+     * Executes the parsed command and returns the response.
+     *
+     * @param commandType The command type to execute.
+     * @param ui          The UI handler.
+     * @param args        The command arguments.
+     * @param taskList    The task list manager.
+     * @param storage     The storage handler.
+     * @return The response from executing the command.
+     * @throws CarrotException If there are issues executing the command.
+     */
+    private Response executeCommand(Response.CommandType commandType, Ui ui, String args,
+                                    TaskList taskList, Storage storage) throws CarrotException {
+        assert commandType != null : "commandType must not be null";
+        assert ui != null : "ui must not be null";
+        assert taskList != null : "taskList must not be null";
+        assert storage != null : "storage must not be null";
+
+        ArrayList<Task> tasks = taskList.getTasks();
+
+        switch (commandType) {
+        case BYE:
+            ui.setExit();
+            return new Response("BYE", ui.exit());
+        case LIST:
+            String message = ui.printTaskList(tasks) + System.lineSeparator();
+            return new Response("LIST", message);
+        case MARK:
+            return mark(ui, tasks, args, storage);
+        case UNMARK:
+            return unmark(ui, tasks, args, storage);
+        case DELETE:
+            return deleteTask(ui, taskList, args, storage);
+        case EVENT:
+            return addEvent(ui, args, taskList, storage);
+        case DEADLINE:
+            return addDeadline(ui, args, taskList, storage);
+        case TODO:
+            return addTodo(ui, args, taskList, storage);
+        case FIND:
+            return findTask(ui, args, taskList);
+        case HELP:
+            return new Response("HELP", ui.printHelp());
+        default:
+            return new Response("INVALID", ui.showInvalidCommands());
+        }
+    }
+
+    /**
      * Processes the user input command and executes the corresponding action.
      *
      * @param ui        The user interface handler used to display feedback and messages.
      * @param input     The raw user input command string.
      * @param taskList  The manager containing the current list of tasks to be modified.
      * @param storage   The storage handler used to persist task data after modification.
+     * @return          The response from executing the command.
      */
     public Response command(Ui ui, String input, TaskList taskList, Storage storage) {
-        assert taskList != null : "TaskList should not be null when processing commands";
-        assert storage != null : "Storage should not be null when processing commands";
+        assert ui != null : "Ui should not be null";
+        assert input != null : "Input should not be null";
+        assert taskList != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
         try {
             String[] split = input.split(" ", 2);
-            String rootCmd = split[0];
+            String commandStr = split[0].toUpperCase();
             String args = (split.length > 1) ? split[1] : "";
-            ArrayList<Task> tasks = taskList.getTasks();
-            switch (rootCmd) {
-            case "bye":
-                ui.setExit();
-                break;
-            case "list":
-                String message = ui.printTaskList(tasks) + System.lineSeparator();
-                return new Response("LIST", message);
-            case "mark":
-                return mark(ui, tasks, args, storage);
-            case "unmark":
-                return unmark(ui, tasks, args, storage);
-            case "delete":
-                return deleteTask(ui, taskList, args, storage);
-            case "event":
-                return addEvent(ui, args, taskList, storage);
-            case "deadline":
-                return addDeadline(ui, args, taskList, storage);
-            case "todo":
-                return addTodo(ui, args, taskList, storage);
-            case "find":
-                return findTask(ui, args, taskList);
-            case "help":
-                return new Response("HELP", ui.printHelp());
-            default:
-                return new Response("INVALID", ui.showInvalidCommands());
+
+            Response parseError = tryParseCommand(commandStr, ui);
+            if (parseError != null) {
+                return parseError;
             }
-        } catch (Exception e) {
+
+            Response.CommandType commandType = Response.CommandType.valueOf(commandStr);
+            return executeCommand(commandType, ui, args, taskList, storage);
+        } catch (CarrotException e) {
             System.out.println(e.getMessage());
+            return new Response("ERROR", e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Unexpected error: " + e.getMessage());
+            return new Response("ERROR", "An unexpected error occurred");
         }
-        return new Response("BYE", ui.exit());
     }
 
     /**
@@ -128,7 +181,8 @@ public class Parser {
                     + args
                     + "' is not a valid index. There are "
                     + taskListSize
-                    + "items in the list. \n"
+                    + " items in the list."
+                    + System.lineSeparator()
                     + "Please use '" + command + " [number]'.");
         }
     }
