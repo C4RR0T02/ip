@@ -90,6 +90,6 @@ class TaskListTest {
 
     @Test
     void deleteTask_invalidIndex_throwsException() {
-        assertThrows(IndexOutOfBoundsException.class, () -> taskList.deleteTask(99));
+        assertThrows(AssertionError.class, () -> taskList.deleteTask(99));
     }
 }
