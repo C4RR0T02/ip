@@ -18,3 +18,6 @@
 ## A-CI: Continuous Integration
 - Setting up CI pipelines to automate the build and testing process for the project
 - Automate the release of application
+
+## A-Personality: A Unique Personality
+- Implementing font changes based on system

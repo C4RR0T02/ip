@@ -1,5 +1,5 @@
 .label {
-    -fx-font-family: "Consolas";
+    -fx-font-size: 14;
     -fx-max-height: Infinity;
     -fx-pref-height: -1;
     -fx-wrap-text: true;

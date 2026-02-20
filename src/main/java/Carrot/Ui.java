@@ -23,7 +23,7 @@ public class Ui {
      * @return String representation of the welcome message
      */
     public String showWelcome() {
-        return "Hello! I'm C4RR0T" + System.lineSeparator() + "What can I do for you?";
+        return "Salut! Je suis C4RR0T" + System.lineSeparator() + "What can I do for you?";
     }
 
     /**
@@ -32,12 +32,17 @@ public class Ui {
      */
     public String printHelp() {
         return ("""
-                HELPPP is hereeee
+                Aide is hereeee
                 What do you need help with
                 - Add a todo task: todo <task name>
                 - Add a event: event <event name> /from <start date> /to <end date>
                 - Add a deadline: deadline <deadline name> /by <deadline date>
                 - Delete a Task: delete <task index>
+                - Update a Task: update <task index> <task arguments>
+                                    /d <new task description>)
+                                    /by <new deadline date>)
+                                    /from <new start date>
+                                    /to <new end date>
                 - List Tasks: list
                 - Mark Task Completed: mark <task index>
                 - Mark Task Incompleted: unmark <task index>
@@ -121,7 +126,7 @@ public class Ui {
      */
     public String exit() {
         isExit = true;
-        return "Bye. Hope to see you again soon!" + System.lineSeparator();
+        return "Au revoir" + System.lineSeparator();
     }
 
     /**

@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -26,6 +27,14 @@ public class Main extends Application {
             assert ap != null : "Root AnchorPane should be loaded from FXML";
 
             Scene scene = new Scene(ap);
+
+            // Load and apply the CSS with font resources
+            String cssResource = Main.class.getResource("/css/main.css").toExternalForm();
+            scene.getStylesheets().add(cssResource);
+
+            String fontFamily = resolveFontFamily();
+            scene.getRoot().setStyle("-fx-font-family: '" + fontFamily + "';");
+
             stage.setScene(scene);
             stage.setTitle("Carrot Chatbot");
             stage.setMinHeight(400);
@@ -41,4 +50,25 @@ public class Main extends Application {
         }
     }
 
+    private String resolveFontFamily() {
+        String osName = System.getProperty("os.name").toLowerCase();
+        String defaultFont = Font.getDefault().getFamily();
+        String[] preferredFonts;
+
+        if (osName.contains("mac")) {
+            preferredFonts = new String[] { "Marker Felt", "Bradley Hand", defaultFont };
+        } else if (osName.contains("win")) {
+            preferredFonts = new String[] { "Segoe UI", "Segoe Print", "Lucida Handwriting", defaultFont };
+        } else {
+            preferredFonts = new String[] { "DejaVu Sans", "Liberation Sans", defaultFont };
+        }
+
+        for (String font : preferredFonts) {
+            if (Font.getFamilies().contains(font)) {
+                return font;
+            }
+        }
+
+        return defaultFont;
+    }
 }

@@ -1,6 +1,7 @@
 /* Main window black background theme */
 .root {
     -fx-background-color: #000000;
+    -fx-font-size: 14;
 }
 
 .scroll-pane {
@@ -51,4 +52,3 @@
     -fx-background-radius: 20;
     -fx-border-radius: 20;
 }
-

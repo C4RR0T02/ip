@@ -35,7 +35,7 @@ class UiTest {
     @Test
     void testShowWelcome_printsCorrectMessages() {
         String output = ui.showWelcome();
-        assertTrue(output.contains("Hello! I'm C4RR0T"));
+        assertTrue(output.contains("Salut! Je suis C4RR0T"));
         assertTrue(output.contains("What can I do for you?"));
     }
 
@@ -59,7 +59,7 @@ class UiTest {
         assertFalse(ui.isExit());
         String output = ui.exit();
         assertTrue(ui.isExit());
-        assertTrue(output.contains("Bye. Hope to see you again soon!"));
+        assertTrue(output.contains("Au revoir"));
     }
 
     @Test

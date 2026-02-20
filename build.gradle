@@ -51,9 +51,25 @@ application {
     mainClass.set("carrot.Launcher")
 }
 
+// Ensure resources are included in JAR
+jar {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from('src/main/resources') {
+        include 'css/**'
+        include 'view/**'
+        include 'images/**'
+    }
+}
+
 shadowJar {
     archiveBaseName = "carrot"
     archiveClassifier = null
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+    from('src/main/resources') {
+        include 'css/**'
+        include 'view/**'
+        include 'images/**'
+    }
 }
 
 run{
