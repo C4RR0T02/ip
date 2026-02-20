@@ -71,6 +71,8 @@ public class Parser {
             return addTodo(ui, args, taskList, storage);
         case FIND:
             return findTask(ui, args, taskList);
+        case UPDATE:
+            return updateTask(ui, args, taskList, storage);
         case HELP:
             return new Response("HELP", ui.printHelp());
         default:
@@ -209,7 +211,6 @@ public class Parser {
         try {
             Task newTask = getNewEvent(args);
             taskList.addTask(newTask);
-            storage.save(taskList.getTasks());
             return new Response("EVENT", ui.printAddTask(newTask));
         } catch (IndexOutOfBoundsException e) {
             throw new CarrotException("Error: Formatting incorrect. "
@@ -256,7 +257,6 @@ public class Parser {
         try {
             Task newTask = getNewDeadline(args);
             taskList.addTask(newTask);
-            storage.save(taskList.getTasks());
             return new Response("DEADLINE", ui.printAddTask(newTask));
         } catch (IndexOutOfBoundsException e) {
             String message = "Error: Too many or too few arguments. Please type 'deadline [task name] /by [due date]'";
@@ -300,7 +300,6 @@ public class Parser {
         }
         Task newTask = new Todo(args.trim());
         taskList.addTask(newTask);
-        storage.save(taskList.getTasks());
         return new Response("TODO", ui.printAddTask(newTask));
     }
 
@@ -318,7 +317,6 @@ public class Parser {
         int taskListSize = taskList.getTasks().size();
         int index = getIndex("delete", args, taskListSize);
         Task removable = taskList.deleteTask(index);
-        storage.save(taskList.getTasks());
         return new Response("DELETE", ui.printDeleteTask(removable));
     }
 
@@ -338,5 +336,270 @@ public class Parser {
         ArrayList<Task> foundTasks = new ArrayList<>();
         taskList.findTasks(args, foundTasks);
         return new Response("FIND", ui.printTaskList(foundTasks));
+    }
+
+    /**
+     * Updates a task in the task list based on user input.
+     * Supports partial updates - users can update individual fields.
+     *
+     * @param ui       The user interface handler used to display feedback and messages.
+     * @param args     The arguments provided by the user, expected to contain index and update params.
+     * @param taskList The manager containing the current list of tasks to be modified.
+     * @param storage  The storage handler used to persist task data after modification.
+     * @return The response string after updating the task.
+     * @throws CarrotException If there are issues with the input or task update.
+     */
+    public Response updateTask(Ui ui, String args, TaskList taskList, Storage storage)
+            throws CarrotException {
+        assert ui != null : "Ui should not be null";
+        assert taskList != null : "TaskList should not be null";
+        assert storage != null : "Storage should not be null";
+
+        if (args == null || args.trim().isEmpty()) {
+            throw new CarrotException("Error: Missing arguments. "
+                    + "Usage: 'update [index] /d [new description]' for Todos, "
+                    + "or 'update [index] /d [new description] /by [date]' for deadlines, "
+                    + "or 'update [index] /d [new description] /from [start] /to [end]' for "
+                    + "events");
+        }
+
+        String[] splitArgs = args.split(" ", 2);
+        if (splitArgs.length < 2) {
+            throw new CarrotException("Error: Missing update parameters. "
+                    + "Usage: 'update [index] /d [description]' for Todos");
+        }
+
+        int index = getIndex("update", splitArgs[0], taskList.getTasks().size());
+        Task oldTask = taskList.getTasks().get(index);
+        assert oldTask != null : "Task at index should not be null";
+
+        String updateArgs = splitArgs[1];
+        Task.TaskType taskType = oldTask.getTaskType();
+
+        // Validate parameters based on task type
+        validateUpdateParameters(updateArgs, taskType);
+
+        // Parse update parameters
+        UpdateParameters params = parseUpdateParameters(updateArgs, taskType);
+
+        // Create updated task using polymorphic method
+        Task newTask = oldTask.createUpdatedTask(params.getDescription(), params.getStartDate(),
+                params.getEndDate(), params.getDueDate());
+
+        taskList.updateTask(index, newTask);
+        storage.save(taskList.getTasks());
+        return new Response("UPDATE", ui.printUpdateMessage(oldTask, newTask));
+    }
+
+    /**
+     * Validates update parameters based on task type.
+     *
+     * @param updateArgs The update arguments string.
+     * @param taskType   The type of task being updated.
+     * @throws CarrotException If invalid parameters are provided for the task type.
+     */
+    private void validateUpdateParameters(String updateArgs, Task.TaskType taskType)
+            throws CarrotException {
+        if (!updateArgs.contains("/d") && !updateArgs.contains("/by")
+                && !updateArgs.contains("/from") && !updateArgs.contains("/to")) {
+            throw new CarrotException("Error: No valid update parameters provided.");
+        }
+
+        if (taskType == Task.TaskType.TODO) {
+            validateTodoParameters(updateArgs);
+        } else if (taskType == Task.TaskType.DEADLINE) {
+            validateDeadlineParameters(updateArgs);
+        } else if (taskType == Task.TaskType.EVENT) {
+            validateEventParameters(updateArgs);
+        }
+    }
+
+    /**
+     * Validates update parameters for Todo tasks.
+     *
+     * @param updateArgs The update arguments string.
+     * @throws CarrotException If invalid parameters are provided for Todo.
+     */
+    private void validateTodoParameters(String updateArgs) throws CarrotException {
+        if (!updateArgs.contains("/d")) {
+            throw new CarrotException("Error: Todos only support /d parameter. "
+                    + "Usage: 'update [index] /d [new description]'");
+        }
+        if (updateArgs.contains("/by") || updateArgs.contains("/from")
+                || updateArgs.contains("/to")) {
+            throw new CarrotException("Error: Todos do not support /by, /from, or /to parameters. "
+                    + "Usage: 'update [index] /d [new description]'");
+        }
+    }
+
+    /**
+     * Validates update parameters for Deadline tasks.
+     *
+     * @param updateArgs The update arguments string.
+     * @throws CarrotException If invalid parameters are provided for Deadline.
+     */
+    private void validateDeadlineParameters(String updateArgs) throws CarrotException {
+        if (updateArgs.contains("/from") || updateArgs.contains("/to")) {
+            throw new CarrotException("Error: Deadlines do not support /from or /to parameters. "
+                    + "Usage: 'update [index] /d [description] /by [date]'");
+        }
+    }
+
+    /**
+     * Validates update parameters for Event tasks.
+     *
+     * @param updateArgs The update arguments string.
+     * @throws CarrotException If invalid parameters are provided for Event.
+     */
+    private void validateEventParameters(String updateArgs) throws CarrotException {
+        if (updateArgs.contains("/by")) {
+            throw new CarrotException("Error: Events do not support /by parameter. "
+                    + "Usage: 'update [index] /d [description] /from [start] /to [end]'");
+        }
+    }
+
+    /**
+     * Parses update parameters from the argument string.
+     * Delegates to specific helper methods for each parameter type.
+     *
+     * @param updateArgs The update arguments string.
+     * @param taskType   The type of task being updated.
+     * @return UpdateParameters object with parsed values.
+     * @throws CarrotException If the update format is invalid.
+     */
+    private UpdateParameters parseUpdateParameters(String updateArgs,
+                                                   Task.TaskType taskType)
+            throws CarrotException {
+        String description = parseDescription(updateArgs);
+        String startDate = parseStartDate(updateArgs, taskType);
+        String endDate = parseEndDate(updateArgs, taskType);
+        String dueDate = parseDueDate(updateArgs, taskType);
+
+        return new UpdateParameters(description, startDate, endDate, dueDate);
+    }
+
+    /**
+     * Parses the description field from update arguments.
+     *
+     * @param updateArgs The update arguments string.
+     * @return The parsed description, or null if not provided.
+     * @throws CarrotException If the description is empty.
+     */
+    private String parseDescription(String updateArgs) throws CarrotException {
+        if (!updateArgs.contains("/d")) {
+            return null;
+        }
+
+        String[] descriptionSplit = updateArgs.split("/d ", 2);
+        String desc = descriptionSplit[1].trim();
+
+        if (desc.isEmpty()) {
+            throw new CarrotException("Error: Description cannot be empty.");
+        }
+
+        String[] parts = desc.split("\\s+/", 2);
+        String description = parts[0].trim();
+
+        if (description.isEmpty()) {
+            throw new CarrotException("Error: Description cannot be empty.");
+        }
+
+        return description;
+    }
+
+    /**
+     * Parses the start date field from update arguments (Event only).
+     *
+     * @param updateArgs The update arguments string.
+     * @param taskType   The type of task being updated.
+     * @return The parsed start date, or null if not provided.
+     * @throws CarrotException If the date is empty or invalid for task type.
+     */
+    private String parseStartDate(String updateArgs, Task.TaskType taskType)
+            throws CarrotException {
+        if (!updateArgs.contains("/from")) {
+            return null;
+        }
+
+        if (taskType != Task.TaskType.EVENT) {
+            throw new CarrotException("Error: /from parameter is only supported for Event tasks. "
+                    + "You are updating a " + taskType.name().toLowerCase() + " task.");
+        }
+
+        String[] fromSplit = updateArgs.split("/from ", 2);
+        String fromContent = fromSplit[1].trim();
+        String[] toSplit = fromContent.split("\\s+/to", 2);
+        String startDate = toSplit[0].trim();
+
+        if (startDate.isEmpty()) {
+            throw new CarrotException("Error: Start date cannot be empty. "
+                    + "Usage: 'update [index] /from [date]'");
+        }
+
+        return startDate;
+    }
+
+    /**
+     * Parses the end date field from update arguments (Event only).
+     *
+     * @param updateArgs The update arguments string.
+     * @param taskType   The type of task being updated.
+     * @return The parsed end date, or null if not provided.
+     * @throws CarrotException If the date is empty or invalid for task type.
+     */
+    private String parseEndDate(String updateArgs, Task.TaskType taskType)
+            throws CarrotException {
+        if (!updateArgs.contains("/to")) {
+            return null;
+        }
+
+        if (taskType != Task.TaskType.EVENT) {
+            throw new CarrotException("Error: /to parameter is only supported for Event tasks. "
+                    + "You are updating a " + taskType.name().toLowerCase() + " task.");
+        }
+
+        String[] toSplit = updateArgs.split("/to ", 2);
+        String toContent = toSplit[1].trim();
+        String[] nextParamSplit = toContent.split("\\s+/", 2);
+        String endDate = nextParamSplit[0].trim();
+
+        if (endDate.isEmpty()) {
+            throw new CarrotException("Error: End date cannot be empty. "
+                    + "Usage: 'update [index] /to [date]'");
+        }
+
+        return endDate;
+    }
+
+    /**
+     * Parses the due date field from update arguments (Deadline only).
+     *
+     * @param updateArgs The update arguments string.
+     * @param taskType   The type of task being updated.
+     * @return The parsed due date, or null if not provided.
+     * @throws CarrotException If the date is empty or invalid for task type.
+     */
+    private String parseDueDate(String updateArgs, Task.TaskType taskType)
+            throws CarrotException {
+        if (!updateArgs.contains("/by")) {
+            return null;
+        }
+
+        if (taskType != Task.TaskType.DEADLINE) {
+            throw new CarrotException("Error: /by parameter is only supported for Deadline tasks. "
+                    + "You are updating a " + taskType.name().toLowerCase() + " task.");
+        }
+
+        String[] bySplit = updateArgs.split("/by ", 2);
+        String byContent = bySplit[1].trim();
+        String[] nextParamSplit = byContent.split("\\s+/", 2);
+        String dueDate = nextParamSplit[0].trim();
+
+        if (dueDate.isEmpty()) {
+            throw new CarrotException("Error: Due date cannot be empty. "
+                    + "Usage: 'update [index] /by [date]'");
+        }
+
+        return dueDate;
     }
 }

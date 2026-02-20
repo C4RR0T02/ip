@@ -81,4 +81,17 @@ public class TaskList {
             }
         }
     }
+
+    /**
+     * Updates a task at the specified index with a new task and saves the changes.
+     *
+     * @param index   The index of the task to be updated.
+     * @param newTask The new task to replace the old one.
+     */
+    public void updateTask(int index, Task newTask) {
+        assert index >= 0 && index < this.tasks.size() : "index must be within bounds of task list";
+        assert newTask != null : "newTask must not be null";
+        this.tasks.set(index, newTask);
+        storage.save(this.tasks);
+    }
 }

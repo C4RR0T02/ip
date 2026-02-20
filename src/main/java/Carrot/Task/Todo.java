@@ -15,6 +15,18 @@ public class Todo extends Task {
     }
 
     @Override
+    public Task createUpdatedTask(String description, String startDate, String endDate,
+                                  String dueDate) {
+        String newDescription = (description != null) ? description : this.taskName;
+        return new Todo(newDescription);
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.TODO;
+    }
+
+    @Override
     public String getAddPrint() {
         return "New Todo Alert: " + this.taskName;
     }
