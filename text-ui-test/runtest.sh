@@ -68,5 +68,6 @@ done
 
 # Clean up temp file
 rm "$MERGED_INPUT" 2> /dev/null
+rm data/carrot.txt 2> /dev/null
 echo "🎉 All tests passed!"
 exit 0

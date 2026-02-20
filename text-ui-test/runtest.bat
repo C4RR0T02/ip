@@ -70,6 +70,7 @@ for %%f in (tests\test_*.txt) do (
 
 REM Clean up temp file
 if exist merged_input.tmp del merged_input.tmp
+if exist data/carrot.txt del data\carrot.txt
 
 echo All tests passed!
 exit /b 0
