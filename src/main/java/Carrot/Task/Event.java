@@ -25,6 +25,27 @@ public class Event extends Task {
         this.endDate = LocalDateTime.parse(endDate, DateFormatter.FORMATTER);
     }
 
+    /**
+     * Gets the start date of the event
+     * @return The start date as LocalDateTime
+     */
+    public LocalDateTime getStartDate() {
+        return this.startDate;
+    }
+
+    /**
+     * Gets the end date of the event
+     * @return The end date as LocalDateTime
+     */
+    public LocalDateTime getEndDate() {
+        return this.endDate;
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.EVENT;
+    }
+
     @Override
     public String getAddPrint() {
         return "New Event Alert: "
@@ -55,5 +76,26 @@ public class Event extends Task {
                 + this.startDate.format(DateFormatter.OUTPUT)
                 + " to: "
                 + this.endDate.format(DateFormatter.OUTPUT) + ")";
+    }
+
+    @Override
+    public String getStartDateFormatted() {
+        return this.startDate.format(DateFormatter.FORMATTER);
+    }
+
+    @Override
+    public String getEndDateFormatted() {
+        return this.endDate.format(DateFormatter.FORMATTER);
+    }
+
+    @Override
+    public Task createUpdatedTask(String description, String startDate, String endDate,
+                                 String dueDate) {
+        String newDescription = (description != null) ? description : this.taskName;
+        String newStartDate = (startDate != null) ? startDate
+                : this.startDate.format(DateFormatter.FORMATTER);
+        String newEndDate = (endDate != null) ? endDate
+                : this.endDate.format(DateFormatter.FORMATTER);
+        return new Event(newDescription, newStartDate, newEndDate);
     }
 }

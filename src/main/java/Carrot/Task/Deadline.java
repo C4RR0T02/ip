@@ -22,6 +22,33 @@ public class Deadline extends Task {
         this.dueDate = LocalDateTime.parse(dueDate, DateFormatter.FORMATTER);
     }
 
+    /**
+     * Gets the due date of the deadline
+     * @return The due date as LocalDateTime
+     */
+    public LocalDateTime getDueDate() {
+        return this.dueDate;
+    }
+
+    @Override
+    public String getDueDateFormatted() {
+        return this.dueDate.format(DateFormatter.FORMATTER);
+    }
+
+    @Override
+    public Task createUpdatedTask(String description, String startDate, String endDate,
+                                  String dueDate) {
+        String newDescription = (description != null) ? description : this.taskName;
+        String newDueDate = (dueDate != null) ? dueDate
+                : this.dueDate.format(DateFormatter.FORMATTER);
+        return new Deadline(newDescription, newDueDate);
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        return TaskType.DEADLINE;
+    }
+
     @Override
     public String getAddPrint() {
         return "New Deadline Alert: " + this.taskName + " by " + this.dueDate.format(DateFormatter.OUTPUT);

@@ -8,7 +8,8 @@ public class Response {
     /**
      * Enum representing the type of command associated with the response.
      */
-    public enum CommandType { HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE, INVALID, ERROR }
+    public enum CommandType { HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE,
+        INVALID, ERROR, UPDATE }
 
     private final String message;
     private final CommandType commandType;

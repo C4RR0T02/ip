@@ -82,6 +82,22 @@ public class Ui {
     }
 
     /**
+    * Shows the updated task message
+    * @param oldTask Task before the update
+    * @param newTask Task after the update
+    * @return String representation of the updated task message
+    */
+    public String printUpdateMessage(Task oldTask, Task newTask) {
+        return "Updated the task"
+                + System.lineSeparator()
+                + "from: "
+                + oldTask
+                + System.lineSeparator()
+                + " to: "
+                + newTask;
+    }
+
+    /**
      * Shows invalid command message
      * @return String representation of the invalid command message
      */
