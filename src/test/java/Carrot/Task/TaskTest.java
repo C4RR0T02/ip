@@ -14,6 +14,11 @@ public class TaskTest {
         }
 
         @Override
+        public TaskType getTaskType() {
+            return TaskType.TASK;
+        }
+
+        @Override
         public String getAddPrint() {
             return "stub";
         }
@@ -21,6 +26,13 @@ public class TaskTest {
         @Override
         public String saveToString() {
             return "stub_save";
+        }
+
+        @Override
+        public Task createUpdatedTask(String description, String startDate, String endDate,
+                                     String dueDate) {
+            String newDescription = (description != null) ? description : this.taskName;
+            return new TaskStub(newDescription);
         }
     }
 
