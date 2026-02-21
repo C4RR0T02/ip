@@ -21,6 +21,6 @@ Prerequisites: JDK 17, update Intellij to the most recent version.
 
     (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
 
-    ![CarrotUI.png](src/main/resources/images/CarrotUI.png)
+    ![Ui.png](docs/Ui.png)
 
 **Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
