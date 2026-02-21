@@ -94,4 +94,12 @@ public class TaskList {
         this.tasks.set(index, newTask);
         storage.save(this.tasks);
     }
+
+    /**
+     * Clears all tasks from the task list and saves the empty list.
+     */
+    public void clearTasks() {
+        this.tasks.clear();
+        storage.save(this.tasks);
+    }
 }

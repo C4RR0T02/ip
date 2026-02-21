@@ -126,7 +126,7 @@ public class Ui {
      */
     public String exit() {
         isExit = true;
-        return "Au revoir" + System.lineSeparator();
+        return "Au revoir";
     }
 
     /**
@@ -142,5 +142,13 @@ public class Ui {
      */
     public boolean isExit() {
         return this.isExit;
+    }
+
+    /**
+     * Shows the clear message
+     * @return String representation of the clear message
+     */
+    public String showClearMessage() {
+        return "Cleared all tasks from the list";
     }
 }

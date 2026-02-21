@@ -74,6 +74,8 @@ public class Parser {
             return findTask(ui, args, taskList);
         case UPDATE:
             return updateTask(ui, args, taskList, storage);
+        case CLEAR:
+            return clearTasks(ui, taskList, storage);
         case HELP:
             return new Response("HELP", ui.printHelp());
         default:
@@ -630,5 +632,19 @@ public class Parser {
         if (start.isAfter(end)) {
             throw new CarrotException("Error: Event start date must be the same as or earlier than end date.");
         }
+    }
+
+    /**
+     * Clears all tasks from the task list and saves the empty list.
+     *
+     * @param ui        The user interface handler used to display feedback and messages.
+     * @param taskList  The manager containing the current list of tasks to be modified.
+     * @param storage   The storage handler used to persist task data after modification.
+     * @return          The response string after clearing the tasks.
+     */
+    private Response clearTasks(Ui ui, TaskList taskList, Storage storage) {
+        taskList.clearTasks();
+        storage.save(taskList.getTasks());
+        return new Response("CLEAR", ui.showClearMessage());
     }
 }

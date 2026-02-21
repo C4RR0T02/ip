@@ -9,7 +9,7 @@ public class Response {
      * Enum representing the type of command associated with the response.
      */
     public enum CommandType { HELP, FIND, LIST, TODO, DEADLINE, EVENT, DELETE, MARK, UNMARK, BYE,
-        INVALID, ERROR, UPDATE }
+        INVALID, ERROR, UPDATE, CLEAR }
 
     private final String message;
     private final CommandType commandType;

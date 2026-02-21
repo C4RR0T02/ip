@@ -253,4 +253,19 @@ class ParserTest {
     void findTask_noKeywordProvided_throwsException() {
         assertThrows(CarrotException.class, () -> parser.findTask(ui, null, taskList));
     }
+
+    @Test
+    void clearCommand_clearsTasksAndSaves() throws CarrotException {
+        taskList.addTask(new Todo("Task 1"));
+        taskList.addTask(new Deadline("Task 2", "2026-02-21"));
+
+        assertEquals(2, taskList.getTasks().size());
+
+        Response response = parser.command(ui, "clear", taskList, storage);
+
+        assertEquals(Response.CommandType.CLEAR, response.getCommandType());
+        assertEquals(0, taskList.getTasks().size());
+        assertEquals(ui.showClearMessage(), response.getMessage());
+        assertTrue(storage.load().isEmpty());
+    }
 }
