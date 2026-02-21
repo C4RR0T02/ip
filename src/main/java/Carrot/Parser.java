@@ -1,6 +1,7 @@
 package carrot;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 import carrot.task.Deadline;
@@ -627,8 +628,14 @@ public class Parser {
      */
     private static void validateEventDateOrder(String startDate, String endDate)
             throws CarrotException {
-        LocalDateTime start = LocalDateTime.parse(startDate, DateFormatter.FORMATTER);
-        LocalDateTime end = LocalDateTime.parse(endDate, DateFormatter.FORMATTER);
+        LocalDateTime start;
+        LocalDateTime end;
+        try {
+            start = LocalDateTime.parse(startDate, DateFormatter.FORMATTER);
+            end = LocalDateTime.parse(endDate, DateFormatter.FORMATTER);
+        } catch (DateTimeParseException e) {
+            throw new CarrotException("Error: Incorrect date format. Please use yyyy-MM-dd or yyyy-MM-dd HH:mm.");
+        }
         if (start.isAfter(end)) {
             throw new CarrotException("Error: Event start date must be the same as or earlier than end date.");
         }

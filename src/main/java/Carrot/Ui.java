@@ -39,8 +39,8 @@ public class Ui {
                 - Add a deadline: deadline <deadline name> /by <deadline date>
                 - Delete a Task: delete <task index>
                 - Update a Task: update <task index> <task arguments>
-                                    /d <new task description>)
-                                    /by <new deadline date>)
+                                    /d <new task description>
+                                    /by <new deadline date>
                                     /from <new start date>
                                     /to <new end date>
                 - List Tasks: list
