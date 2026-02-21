@@ -19,7 +19,7 @@ import carrot.task.Todo;
 
 public class StorageTest {
 
-    private static final String TEST_PATH = "data/test_storage.txt";
+    private static final String TEST_PATH = "data/test_Carrot.txt";
     private Storage storage;
     private File testFile;
 

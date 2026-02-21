@@ -25,7 +25,7 @@ class CarrotTest {
      */
     @Test
     void testCarrot_withCustomPath_createsFileCorrectly() {
-        Path testFilePath = tempDir.resolve("test_tasks.txt");
+        Path testFilePath = tempDir.resolve("test_Carrot.txt");
         String testPathString = testFilePath.toString();
 
         try {
