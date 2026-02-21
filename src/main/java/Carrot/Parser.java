@@ -1,6 +1,7 @@
 package carrot;
 
 import java.util.ArrayList;
+import java.time.LocalDateTime;
 
 import carrot.task.Deadline;
 import carrot.task.Event;
@@ -223,8 +224,9 @@ public class Parser {
      *
      * @param args The raw arguments string containing the event details.
      * @return A new Event task created from the parsed details.
+     * @throws CarrotException If the input format is incorrect or if required details are missing.
      */
-    private static Task getNewEvent(String args) {
+    private static Task getNewEvent(String args) throws CarrotException {
         String[] taskSplit = args.split("/from ", 2);
         assert taskSplit.length == 2 : "Event details should contain both name and time frame";
         String eventName = taskSplit[0].trim();
@@ -233,6 +235,7 @@ public class Parser {
         assert timeFrame.length == 2 : "Time frame should contain both start and end times";
         String from = timeFrame[0].trim();
         String to = timeFrame[1].trim();
+        validateEventDateOrder(from, to);
         return new Event(eventName, from, to);
     }
 
@@ -381,6 +384,16 @@ public class Parser {
 
         // Parse update parameters
         UpdateParameters params = parseUpdateParameters(updateArgs, taskType);
+
+        if (taskType == Task.TaskType.EVENT) {
+            String effectiveStart = params.getStartDate() != null
+                    ? params.getStartDate()
+                    : oldTask.getStartDateFormatted();
+            String effectiveEnd = params.getEndDate() != null
+                    ? params.getEndDate()
+                    : oldTask.getEndDateFormatted();
+            validateEventDateOrder(effectiveStart, effectiveEnd);
+        }
 
         // Create updated task using polymorphic method
         Task newTask = oldTask.createUpdatedTask(params.getDescription(), params.getStartDate(),
@@ -601,5 +614,21 @@ public class Parser {
         }
 
         return dueDate;
+    }
+
+    /**
+     * Validates that the event start date is not after the end date.
+     *
+     * @param startDate The start date string to validate.
+     * @param endDate   The end date string to validate.
+     * @throws CarrotException If the date order is invalid.
+     */
+    private static void validateEventDateOrder(String startDate, String endDate)
+            throws CarrotException {
+        LocalDateTime start = LocalDateTime.parse(startDate, DateFormatter.FORMATTER);
+        LocalDateTime end = LocalDateTime.parse(endDate, DateFormatter.FORMATTER);
+        if (start.isAfter(end)) {
+            throw new CarrotException("Error: Event start date must be the same as or earlier than end date.");
+        }
     }
 }
