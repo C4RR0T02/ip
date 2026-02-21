@@ -37,7 +37,7 @@ class ParserTest {
         System.setOut(new PrintStream(outputStreamCaptor));
         parser = new Parser();
         ui = new Ui();
-        String tempPath = tempDir.resolve("parser_test.txt").toString();
+        String tempPath = tempDir.resolve("test_Carrot.txt").toString();
         storage = new Storage(tempPath);
         taskList = new TaskList(storage);
     }

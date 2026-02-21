@@ -26,7 +26,7 @@ class TaskListTest {
 
     @BeforeEach
     void setUp() {
-        String tempPath = tempDir.resolve("tasks.txt").toString();
+        String tempPath = tempDir.resolve("test_Carrot.txt").toString();
         storage = new Storage(tempPath);
         taskList = new TaskList(storage);
     }
