@@ -1,7 +1,7 @@
 package carrot;
 
-import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import carrot.task.Deadline;
 import carrot.task.Event;
