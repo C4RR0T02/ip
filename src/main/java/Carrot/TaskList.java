@@ -76,7 +76,7 @@ public class TaskList {
         assert this.tasks != null : "tasks should be initialized";
         for (Task task : this.getTasks()) {
             assert task != null : "task in tasks list should not be null";
-            if (task.getTaskName().contains(keyword)) {
+            if (task.getTaskName().toLowerCase().contains(keyword.toLowerCase())) {
                 arrayList.add(task);
             }
         }
