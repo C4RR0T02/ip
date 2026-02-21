@@ -7,7 +7,7 @@ import java.util.Scanner;
  */
 public class Carrot {
 
-    public static final String DEFAULT_FILEPATH = "data/taskList.txt";
+    public static final String DEFAULT_FILEPATH = "data/Carrot.txt";
     private final Storage storage;
     private final TaskList taskList;
     private final Parser parser;
